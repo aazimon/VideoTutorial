@@ -38,16 +38,17 @@ public class GameScreen extends BaseScreen {
       batch.draw(img, 0, y);
       // draw resizing of the image
       //batch.draw(img, 150, y, 256, 256);
-      //batch.draw(img, 150, y, 64, 64);
-      // draw region with the image.
+      // batch.draw(img, 150, y, 100, 200);
+      // draw a region of the image
       //batch.draw(img, 150, y, 15, 15, 128, 128);
       //batch.draw(img, 150, y, 15, 5, 100, 105);
-      // draws zoomed portion of the image.
+      // zoom in on portion of the image
       //batch.draw(img, 150, y, 128, 128, 0f, 1f, 1f, 0f);
-      //batch.draw(img, 150, y, 128, 128, 0.30f, .5f, .45f, 0.35f);
-      // drawing a flipped image
-      //batch.draw(img, 150, y, 128, 128, 0, 0, 128, 128, true, true);
-      //batch.draw(img, 150, y, 128, 128, 15, 5, 100, 105, true, true);
+      //batch.draw(img, 150, y, 128, 128, 0f, .75f, 1f, .25f);
+      //batch.draw(img, 150, y, 30, 35, 0.3f, .5f, .45f, .35f);
+      //batch.draw(img, 150, y, 128, 128, 1f, 0f, 0f, 1f);
+      // draw resizing, portion and flipping.
+      //batch.draw(img, 150, y, 100, 105, 15, 5, 100, 105, true, false);
       // drawing with rotation
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 0, 0, 128, 128, false, false);
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 15, 5, 100, 105, false, false);
