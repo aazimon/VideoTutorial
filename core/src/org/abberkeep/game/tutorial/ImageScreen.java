@@ -18,10 +18,10 @@ import org.abberkeep.gameframework.screen.BaseScreen;
  * @author Gary Deken
  * @version
  */
-public class GameScreen extends BaseScreen {
+public class ImageScreen extends BaseScreen {
    private Texture img;
 
-   public GameScreen(int width, int height) {
+   public ImageScreen(int width, int height) {
       super(width, height);
       setBackgroundColor(Color.WHITE);
    }
@@ -45,6 +45,7 @@ public class GameScreen extends BaseScreen {
       // zoom in on portion of the image
       //batch.draw(img, 150, y, 128, 128, 0f, 1f, 1f, 0f);
       //batch.draw(img, 150, y, 128, 128, 0f, .75f, 1f, .25f);
+      batch.draw(img, 150, y, 128, 128, 0f, 1.75f, 1f, .25f);
       //batch.draw(img, 150, y, 30, 35, 0.3f, .5f, .45f, .35f);
       //batch.draw(img, 150, y, 128, 128, 1f, 0f, 0f, 1f);
       // draw resizing, portion and flipping.
@@ -53,17 +54,12 @@ public class GameScreen extends BaseScreen {
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 0, 0, 128, 128, false, false);
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 15, 5, 100, 105, false, false);
       // colorizing the image
-      batch.setColor(Color.RED);
-      batch.draw(img, 150, y);
+      //batch.setColor(Color.RED);
+      //batch.draw(img, 150, y);
       //batch.setColor(Color.CLEAR);
       batch.setColor(Color.WHITE);
       batch.draw(img, 300, y);
 
-   }
-
-   @Override
-   public void resize(int i, int i1) {
-      //
    }
 
 }
