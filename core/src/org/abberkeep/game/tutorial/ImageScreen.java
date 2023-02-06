@@ -7,7 +7,6 @@ package org.abberkeep.game.tutorial;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import org.abberkeep.gameframework.animation.StaticAnimation;
-import org.abberkeep.gameframework.animation.imagefx.CropEffect;
 import org.abberkeep.gameframework.screen.BaseScreen;
 
 /**
@@ -25,7 +24,6 @@ public class ImageScreen extends BaseScreen {
    private StaticAnimation sa1;
    private StaticAnimation sa2;
    private StaticAnimation sa3;
-   private float size = 64;
 
    public ImageScreen(int width, int height) {
       super(width, height);
@@ -36,31 +34,26 @@ public class ImageScreen extends BaseScreen {
    public void show() {
       img = getTexture("DemoPortait.png");
       sa1 = new StaticAnimation(img);
-      sa2 = new StaticAnimation(img, 256, 256);
-      CropEffect ci = new CropEffect(15, 5, 100, 105);
+      sa2 = new StaticAnimation(img, 100, 200);
       sa3 = new StaticAnimation(img);
-      sa3.setImageFX(ci);
+      sa3.setRotation(45);
+      sa3.setCropping(15, 5, 100, 105);
+      sa1.setRotation(45);
+      sa2.setRotation(45);
    }
 
    @Override
    protected void renderChild(float deltaTime) {
       float y = 20;
       // draws the image.
-      sa1.draw(batch, 0, y);
+      sa1.draw(batch, 2, y);
       // draw resizing of the image
-      //sa2.draw(batch, 150, y);
-//      size += deltaTime;
-//      sa2.resize(size, size);
-      //batch.draw(img, 150, y, 256, 256);
-      // batch.draw(img, 150, y, 100, 200);
+      sa2.draw(batch, 150, y);
       // draw a region of the image
-      //batch.draw(img, 150, y, 15, 15, 128, 128);
-      sa3.draw(batch, 150, y);
-      //batch.draw(img, 150, y, 15, 5, 100, 105);
+      sa3.draw(batch, 400, y);
       // zoom in on portion of the image
-      //batch.draw(img, 150, y, 128, 128, 0f, 1f, 1f, 0f);
+      //batch.draw(img, 150, y, 128, 128, .25f, 1f, 1f, 0f);
       //batch.draw(img, 150, y, 128, 128, 0f, .75f, 1f, .25f);
-      //sa4.draw(batch, 300, y);
       //batch.draw(img, 150, y, 128, 128, 0f, 1.75f, 1f, .25f);
       //batch.draw(img, 150, y, 30, 35, 0.3f, .5f, .45f, .35f);
       //batch.draw(img, 150, y, 128, 128, 1f, 0f, 0f, 1f);
