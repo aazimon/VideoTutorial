@@ -19,6 +19,7 @@ package org.abberkeep.game.tutorial;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.screen.BaseScreen;
 
 /**
@@ -33,6 +34,9 @@ import org.abberkeep.gameframework.screen.BaseScreen;
  */
 public class AnimationScreen extends BaseScreen {
    private Animation<TextureRegion> animation;
+   private LoopAnimation loopAnimation1;
+   private LoopAnimation loopAnimation2;
+   private LoopAnimation loopAnimation3;
    private Animation<TextureRegion> animation2;
    private float animationTime;
    private int loops = 4;
@@ -43,6 +47,7 @@ public class AnimationScreen extends BaseScreen {
    private float cx = 100;
    private float cy = 100;
    private float mv = .8f;
+   private float rot = 0f;
    private char direct = 'r';
 
    public AnimationScreen(int width, int height) {
@@ -51,27 +56,37 @@ public class AnimationScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackgroundColor(Color.WHITE);
+      setBackgroundColor(Color.BLACK);
       TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("MovingBall.png"), 50, 200);
+
+      loopAnimation1 = new LoopAnimation(0.1f, textureRegions1[0]);
+      loopAnimation2 = new LoopAnimation(0.1f, textureRegions1[0], 3);
+      loopAnimation2.setSize(25, 100);
+      loopAnimation3 = new LoopAnimation(0.1f, textureRegions1[0], 10, 20);
       animation = new Animation<>(0.1f, textureRegions1[0]);
+      animation.setPlayMode(Animation.PlayMode.LOOP);
       TextureRegion[][] textureRegions2 = TextureRegion.split(getTexture("Bouncing Ball.png"), 50, 200);
       animation2 = new Animation<>(0.1f, textureRegions2[0]);
       animation2.setPlayMode(Animation.PlayMode.LOOP);
       TextureRegion[][] regionWalk = TextureRegion.split(getTexture("DemoCharacter.jpg"), 64, 64);
       animationDown = new Animation<>(0.2f, regionWalk[0]);
-      animationDown.setPlayMode(Animation.PlayMode.LOOP);
+      animationDown.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
       animationLeft = new Animation<>(0.2f, regionWalk[1]);
       animationLeft.setPlayMode(Animation.PlayMode.LOOP);
       animationRight = new Animation<>(0.2f, regionWalk[2]);
-      animationRight.setPlayMode(Animation.PlayMode.LOOP);
+      animationRight.setPlayMode(Animation.PlayMode.LOOP_REVERSED);
       animationUp = new Animation<>(0.2f, regionWalk[3]);
-      animationUp.setPlayMode(Animation.PlayMode.LOOP);
+      animationUp.setPlayMode(Animation.PlayMode.LOOP_RANDOM);
    }
 
    @Override
    protected void renderChild(float deltaTime) {
+      loopAnimation1.update(deltaTime);
+      loopAnimation2.update(deltaTime);
+      loopAnimation3.update(deltaTime);
       animationTime += deltaTime;
 
+      loopAnimation1.draw(batch, 10, 100);
       //batch.draw(animation.getKeyFrame(animationTime), 0, 100);
       int loopNumber = (int) (animationTime / animation.getAnimationDuration());
       boolean loop = false;
@@ -80,11 +95,14 @@ public class AnimationScreen extends BaseScreen {
       }
       //batch.draw(animation.getKeyFrame(animationTime, loop), 75, 100);
       // Resizing
+      loopAnimation2.draw(batch, 80, 100);
+      loopAnimation3.draw(batch, 140, 100);
       //batch.draw(animation2.getKeyFrame(animationTime), 10, 100, 50, 200);
       //batch.draw(animation2.getKeyFrame(animationTime), 80, 100, 25, 100);
       // rotating  and sizing.
-      //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, 1, 1, 0, false);
-      //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, -1, 1, 0, true);
+      //batch.draw(animation.getKeyFrame(animationTime), 80, 100, 25, 100, 50, 200, 1, 1, 90);
+      //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, -1, 1, 0);
+      // movement in four directions
       switch (direct) {
          case 'r':
             cx += mv;
@@ -92,7 +110,7 @@ public class AnimationScreen extends BaseScreen {
                cx = 200;
                direct = 'u';
             }
-            batch.draw(animationRight.getKeyFrame(animationTime), cx, cy);
+            //batch.draw(animationRight.getKeyFrame(animationTime), cx, cy);
             break;
          case 'u':
             cy += mv;
@@ -100,7 +118,7 @@ public class AnimationScreen extends BaseScreen {
                cy = 200;
                direct = 'l';
             }
-            batch.draw(animationUp.getKeyFrame(animationTime), cx, cy);
+            //batch.draw(animationUp.getKeyFrame(animationTime), cx, cy);
             break;
          case 'l':
             cx -= mv;
@@ -108,7 +126,7 @@ public class AnimationScreen extends BaseScreen {
                cx = 100;
                direct = 'd';
             }
-            batch.draw(animationLeft.getKeyFrame(animationTime), cx, cy);
+            //batch.draw(animationLeft.getKeyFrame(animationTime), cx, cy);
             break;
          case 'd':
             cy -= mv;
@@ -116,7 +134,7 @@ public class AnimationScreen extends BaseScreen {
                cy = 100;
                direct = 'r';
             }
-            batch.draw(animationDown.getKeyFrame(animationTime), cx, cy);
+            //batch.draw(animationDown.getKeyFrame(animationTime), cx, cy);
             break;
          default:
             throw new AssertionError();
