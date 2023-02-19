@@ -19,6 +19,7 @@ package org.abberkeep.game.tutorial;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.BounceAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.screen.BaseScreen;
 
@@ -37,6 +38,7 @@ public class AnimationScreen extends BaseScreen {
    private LoopAnimation loopAnimation1;
    private LoopAnimation loopAnimation2;
    private LoopAnimation loopAnimation3;
+   private BounceAnimation bounceAnimation;
    private Animation<TextureRegion> animation2;
    private float animationTime;
    private int loops = 4;
@@ -62,7 +64,8 @@ public class AnimationScreen extends BaseScreen {
       loopAnimation1 = new LoopAnimation(0.1f, textureRegions1[0]);
       loopAnimation2 = new LoopAnimation(0.1f, textureRegions1[0], 3);
       loopAnimation2.setSize(25, 100);
-      loopAnimation3 = new LoopAnimation(0.1f, textureRegions1[0], 10, 20);
+      loopAnimation3 = new LoopAnimation(0.1f, textureRegions1[0], 10);
+      bounceAnimation = new BounceAnimation(0.1f, textureRegions1[0], 3);
       animation = new Animation<>(0.1f, textureRegions1[0]);
       animation.setPlayMode(Animation.PlayMode.LOOP);
       TextureRegion[][] textureRegions2 = TextureRegion.split(getTexture("Bouncing Ball.png"), 50, 200);
@@ -84,6 +87,7 @@ public class AnimationScreen extends BaseScreen {
       loopAnimation1.update(deltaTime);
       loopAnimation2.update(deltaTime);
       loopAnimation3.update(deltaTime);
+      bounceAnimation.update(deltaTime);
       animationTime += deltaTime;
 
       loopAnimation1.draw(batch, 10, 100);
@@ -94,9 +98,10 @@ public class AnimationScreen extends BaseScreen {
          loop = true;
       }
       //batch.draw(animation.getKeyFrame(animationTime, loop), 75, 100);
+      bounceAnimation.draw(batch, 80, 100);
       // Resizing
-      loopAnimation2.draw(batch, 80, 100);
-      loopAnimation3.draw(batch, 140, 100);
+//      loopAnimation2.draw(batch, 80, 100);
+//      loopAnimation3.draw(batch, 140, 100);
       //batch.draw(animation2.getKeyFrame(animationTime), 10, 100, 50, 200);
       //batch.draw(animation2.getKeyFrame(animationTime), 80, 100, 25, 100);
       // rotating  and sizing.
