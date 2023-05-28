@@ -81,7 +81,7 @@ public class AnimationScreen extends BaseScreen {
 
 //      loopAnimation1.draw(batch, 10, 100);
 //      bounceAnimation1.draw(batch, 10, 100);
-      randomAnimation1.draw(batch, 10, 100);
+//      randomAnimation1.draw(batch, 10, 100);
 //      loopAnimation2.draw(batch, 100, 100);
       // Resizing
       //batch.draw(animation2.getKeyFrame(animationTime), 10, 100, 50, 200);
@@ -89,46 +89,46 @@ public class AnimationScreen extends BaseScreen {
       // rotating  and sizing.
       //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, 1, 1, 0, false);
       //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, -1, 1, 0, true);
-//      switch (direct) {
-//         case 'r':
-//            cx += mv;
-//            if (cx > 200) {
-//               cx = 200;
-//               direct = 'u';
-//            }
-//            loopAnimationRight.update(deltaTime);
-//            loopAnimationRight.draw(batch, cx, cy);
-//            break;
-//         case 'u':
-//            cy += mv;
-//            if (cy > 200) {
-//               cy = 200;
-//               direct = 'l';
-//            }
-//            loopAnimationUp.update(deltaTime);
-//            loopAnimationUp.draw(batch, cx, cy);
-//            break;
-//         case 'l':
-//            cx -= mv;
-//            if (cx < 100) {
-//               cx = 100;
-//               direct = 'd';
-//            }
-//            loopAnimationLeft.update(deltaTime);
-//            loopAnimationLeft.draw(batch, cx, cy);
-//            break;
-//         case 'd':
-//            cy -= mv;
-//            if (cy < 100) {
-//               cy = 100;
-//               direct = 'r';
-//            }
-//            loopAnimationDown.update(deltaTime);
-//            loopAnimationDown.draw(batch, cx, cy);
-//            break;
-//         default:
-//            throw new AssertionError();
-//      }
+      switch (direct) {
+         case 'r':
+            cx += mv;
+            if (cx > 200) {
+               cx = 200;
+               direct = 'u';
+            }
+            loopAnimationRight.update(deltaTime);
+            loopAnimationRight.draw(batch, cx, cy);
+            break;
+         case 'u':
+            cy += mv;
+            if (cy > 200) {
+               cy = 200;
+               direct = 'l';
+            }
+            loopAnimationUp.update(deltaTime);
+            loopAnimationUp.draw(batch, cx, cy);
+            break;
+         case 'l':
+            cx -= mv;
+            if (cx < 100) {
+               cx = 100;
+               direct = 'd';
+            }
+            loopAnimationLeft.update(deltaTime);
+            loopAnimationLeft.draw(batch, cx, cy);
+            break;
+         case 'd':
+            cy -= mv;
+            if (cy < 100) {
+               cy = 100;
+               direct = 'r';
+            }
+            loopAnimationDown.update(deltaTime);
+            loopAnimationDown.draw(batch, cx, cy);
+            break;
+         default:
+            throw new AssertionError();
+      }
 
    }
 
