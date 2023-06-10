@@ -17,7 +17,10 @@
 package org.abberkeep.game.tutorial;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.motion.FourWayMotion;
+import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.motion.TwoWayMotion;
 import org.abberkeep.gameframework.movement.Direction;
 import org.abberkeep.gameframework.screen.BaseScreen;
@@ -36,6 +39,7 @@ public class MotionScreen extends BaseScreen {
    private FourWayMotion fourWayMotion;
    private FourWayMotion fourWayMotion1;
    private TwoWayMotion twoWayMotion;
+   private SingleMotion singleMotion;
    private float cx = 100;
    private float cy = 100;
    private float mv = .8f;
@@ -48,9 +52,9 @@ public class MotionScreen extends BaseScreen {
    @Override
    public void show() {
       setBackgroundColor(Color.WHITE);
-//      TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("Magic-Egg.png"), 39, 48);
+      TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("Magic-Egg.png"), 39, 48);
 //
-//      LoopAnimation loopAnimation1 = new LoopAnimation(0.1f, textureRegions1[0]);
+      LoopAnimation loopAnimation1 = new LoopAnimation(0.03f, textureRegions1[0]);
 //      BounceAnimation bounceAnimation1 = new BounceAnimation(0.1f, textureRegions1[0]);
 //      RandomAnimation randomAnimation1 = new RandomAnimation(0.2f, textureRegions1[0]);
 
@@ -60,9 +64,9 @@ public class MotionScreen extends BaseScreen {
 //      LoopAnimation loopAnimationRight = new LoopAnimation(0.2f, regionWalk[2]);
 //      LoopAnimation loopAnimationUp = new LoopAnimation(0.2f, regionWalk[3]);
       //fourWayMotion = new FourWayMotion(loopAnimationUp, loopAnimationRight, loopAnimationDown, loopAnimationLeft);
-      fourWayMotion = new FourWayMotion(getTexture("DemoCharacter.jpg"), 64, 64, 0.2f, 3, 2, 0, 1);
-      //fourWayMotion1 = new FourWayMotion(randomAnimation1, randomAnimation1, randomAnimation1, randomAnimation1);
-
+      //fourWayMotion = new FourWayMotion(getTexture("DemoCharacter.jpg"), 64, 64, 0.2f, 3, 2, 0, 1);
+//      fourWayMotion1 = new FourWayMotion(loopAnimation1, loopAnimation1, loopAnimation1, loopAnimation1);
+      singleMotion = new SingleMotion(loopAnimation1);
 //      TextureRegion[][] textureRegions2 = TextureRegion.split(getTexture("Jojo-Running.png"), 50, 62);
 //      LoopAnimation walkLeft = new LoopAnimation(.2f, textureRegions2[0]);
 //      LoopAnimation walkRight = new LoopAnimation(.2f, textureRegions2[1]);
@@ -97,8 +101,10 @@ public class MotionScreen extends BaseScreen {
             direction = Direction.EAST;
          }
       }
-      fourWayMotion.update(deltaTime, direction);
-      fourWayMotion.draw(batch, cx, cy);
+//      fourWayMotion1.update(deltaTime, direction);
+//      fourWayMotion1.draw(batch, cx, cy);
+      singleMotion.update(deltaTime, direction);
+      singleMotion.draw(batch, cx, cy);
 //      if (direction == Direction.EAST) {
 //         cx += mv;
 //         if (cx > 300) {

@@ -46,12 +46,13 @@ public class ImageScreen extends BaseScreen {
    protected void renderChild(float deltaTime) {
       float y = 20;
       // draws the image.
-      sa1.draw(batch, 2, y);
+      //sa1.draw(batch, 2, y);
       // draw resizing of the image
-      sa2.draw(batch, 150, y);
+      //sa2.draw(batch, 150, y);
       // draw a region of the image
-      sa3.draw(batch, 400, y);
+      //sa3.draw(batch, 400, y);
       // zoom in on portion of the image
+      batch.draw(img, 10, y);
       //batch.draw(img, 150, y, 128, 128, .25f, 1f, 1f, 0f);
       //batch.draw(img, 150, y, 128, 128, 0f, .75f, 1f, .25f);
       //batch.draw(img, 150, y, 128, 128, 0f, 1.75f, 1f, .25f);
@@ -63,10 +64,10 @@ public class ImageScreen extends BaseScreen {
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 0, 0, 128, 128, false, false);
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 15, 5, 100, 105, false, false);
       // colorizing the image
-      //batch.setColor(Color.RED);
-      //batch.draw(img, 150, y);
+      batch.setColor(Color.RED);
+      batch.draw(img, 150, y);
       //batch.setColor(Color.CLEAR);
-      //batch.setColor(Color.WHITE);
+      batch.setColor(Color.WHITE);
       //batch.draw(img, 300, y);
    }
 
