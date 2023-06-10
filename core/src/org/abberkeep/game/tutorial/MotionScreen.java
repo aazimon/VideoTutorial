@@ -18,7 +18,9 @@ package org.abberkeep.game.tutorial;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.LayeredAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
+import org.abberkeep.gameframework.animation.StaticAnimation;
 import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.motion.TwoWayMotion;
@@ -52,9 +54,13 @@ public class MotionScreen extends BaseScreen {
    @Override
    public void show() {
       setBackgroundColor(Color.WHITE);
-      TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("Magic-Egg.png"), 39, 48);
-//
+      TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("Magic-Ring.png"), 39, 48);
+
+      StaticAnimation egg = new StaticAnimation(getTexture("Egg.png"));
       LoopAnimation loopAnimation1 = new LoopAnimation(0.03f, textureRegions1[0]);
+      egg.setColor(Color.CHARTREUSE);
+      LayeredAnimation layeredAnimation = new LayeredAnimation(egg);
+      layeredAnimation.addAnimation(loopAnimation1);
 //      BounceAnimation bounceAnimation1 = new BounceAnimation(0.1f, textureRegions1[0]);
 //      RandomAnimation randomAnimation1 = new RandomAnimation(0.2f, textureRegions1[0]);
 
@@ -66,7 +72,7 @@ public class MotionScreen extends BaseScreen {
       //fourWayMotion = new FourWayMotion(loopAnimationUp, loopAnimationRight, loopAnimationDown, loopAnimationLeft);
       //fourWayMotion = new FourWayMotion(getTexture("DemoCharacter.jpg"), 64, 64, 0.2f, 3, 2, 0, 1);
 //      fourWayMotion1 = new FourWayMotion(loopAnimation1, loopAnimation1, loopAnimation1, loopAnimation1);
-      singleMotion = new SingleMotion(loopAnimation1);
+      singleMotion = new SingleMotion(layeredAnimation);
 //      TextureRegion[][] textureRegions2 = TextureRegion.split(getTexture("Jojo-Running.png"), 50, 62);
 //      LoopAnimation walkLeft = new LoopAnimation(.2f, textureRegions2[0]);
 //      LoopAnimation walkRight = new LoopAnimation(.2f, textureRegions2[1]);
