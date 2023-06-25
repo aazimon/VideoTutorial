@@ -13,11 +13,11 @@ import org.abberkeep.gameframework.screen.BaseScreen;
  * Title: GameScreen
  *
  * <p>
- * Description: </p>
+ * Description: Tutorial for demonstrating still image rendering, and then for creating Animation class.</p>
  *
  * Copyright (c) Dec 9, 2022
  * @author Gary Deken
- * @version
+ * @version 0.2
  */
 public class ImageScreen extends BaseScreen {
    private Texture img;
@@ -25,13 +25,9 @@ public class ImageScreen extends BaseScreen {
    private StaticAnimation sa2;
    private StaticAnimation sa3;
 
-   public ImageScreen(int width, int height) {
-      super(width, height);
-      setBackgroundColor(Color.WHITE);
-   }
-
    @Override
    public void show() {
+      setBackgroundColor(Color.WHITE);
       img = getTexture("DemoPortait.png");
       sa1 = new StaticAnimation(img);
       sa2 = new StaticAnimation(img, 100, 200);

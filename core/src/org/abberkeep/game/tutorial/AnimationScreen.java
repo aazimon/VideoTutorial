@@ -27,11 +27,11 @@ import org.abberkeep.gameframework.screen.BaseScreen;
  * Title: AnimationScreen
  *
  * <p>
- * Description: </p>
+ * Description: Tutorial for demonstrating animated images, and then for creating Animation class.</p>
  *
  * Copyright (c) Dec 18, 2022
  * @author Gary Deken
- * @version
+ * @version 0.3
  */
 public class AnimationScreen extends BaseScreen {
    private LoopAnimation loopAnimation1;
@@ -46,10 +46,6 @@ public class AnimationScreen extends BaseScreen {
    private float cy = 100;
    private float mv = .8f;
    private char direct = 'r';
-
-   public AnimationScreen(int width, int height) {
-      super(width, height);
-   }
 
    @Override
    public void show() {

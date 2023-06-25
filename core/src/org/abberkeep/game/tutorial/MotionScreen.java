@@ -31,11 +31,11 @@ import org.abberkeep.gameframework.screen.BaseScreen;
  * Title: AnimationScreen
  *
  * <p>
- * Description: </p>
+ * Description: Tutorial for encapsulating animations into a Motion class.</p>
  *
  * Copyright (c) Dec 18, 2022
  * @author Gary Deken
- * @version
+ * @version 0.6
  */
 public class MotionScreen extends BaseScreen {
    private FourWayMotion fourWayMotion;
@@ -46,10 +46,6 @@ public class MotionScreen extends BaseScreen {
    private float cy = 100;
    private float mv = .8f;
    private float direction = Direction.EAST;
-
-   public MotionScreen(int width, int height) {
-      super(width, height);
-   }
 
    @Override
    public void show() {

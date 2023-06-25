@@ -33,7 +33,7 @@ import org.abberkeep.gameframework.screen.BaseScreen;
 public class ShapeExample extends BaseScreen {
 
    public ShapeExample() {
-      super(0, 0);
+      super();
    }
 
    @Override

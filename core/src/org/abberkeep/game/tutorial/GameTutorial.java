@@ -7,9 +7,10 @@ public class GameTutorial extends BaseGame {
    @Override
    public void create() {
       super.create();
-//      ImageScreen screen = new ImageScreen(800, 600);
-//      AnimationScreen screen = new AnimationScreen(800, 600);
-      MotionScreen screen = new MotionScreen(800, 600);
+//      ImageScreen screen = new ImageScreen();
+//      AnimationScreen screen = new AnimationScreen();
+      //MotionScreen screen = new MotionScreen();
+      InputScreen screen = new InputScreen();
       setScreen(screen);
    }
 
