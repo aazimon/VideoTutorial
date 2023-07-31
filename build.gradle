@@ -40,11 +40,6 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 
-//  tasks.withType(JavaCompile).configureEach {
-//    javaCompiler = javaToolchains.compilerFor {
-//      languageVersion = JavaLanguageVersion.of(8)
-//    }
-//  }
 }
 
 project(":desktop") {

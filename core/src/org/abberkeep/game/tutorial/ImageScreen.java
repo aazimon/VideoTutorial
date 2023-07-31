@@ -60,8 +60,8 @@ public class ImageScreen extends BaseScreen {
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 0, 0, 128, 128, false, false);
       //batch.draw(img, 150, y, 0, 0, 128, 128, 1, 1, 15f, 15, 5, 100, 105, false, false);
       // colorizing the image
-      batch.setColor(Color.RED);
-      batch.draw(img, 150, y);
+      batch.setColor(1, 1, 1, .4f);
+      batch.draw(img, 50, y);
       //batch.setColor(Color.CLEAR);
       batch.setColor(Color.WHITE);
       //batch.draw(img, 300, y);

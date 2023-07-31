@@ -16,6 +16,7 @@
  */
 package org.abberkeep.game.tutorial;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.animation.BlockAnimation;
@@ -24,6 +25,7 @@ import org.abberkeep.gameframework.motion.TwoWayMotion;
 import org.abberkeep.gameframework.movement.FourKeyMovement;
 import org.abberkeep.gameframework.movement.TwoKeyMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.sprite.SpriteUpdate;
 
 /**
  * Title: InputScreen
@@ -46,6 +48,7 @@ public class InputScreen extends BaseScreen {
    private float y = 100;
    private FourKeyMovement movement1;
    private FourWayMotion motion1;
+   private SpriteUpdate spriteUpdate;
 
    @Override
    public void show() {
@@ -54,18 +57,45 @@ public class InputScreen extends BaseScreen {
       animation.setColor(Color.BLUE);
       animation1 = new BlockAnimation(20, 20);
       animation1.setColor(Color.DARK_GRAY);
-      movement = new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, true);
+      movement = new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, 0.8f, true);
       //movement = new TwoKeyMovement(Input.Keys.UP, Input.Keys.DOWN, false);
-      movement.setSpeed(0.8f);
+//      movement.setSpeed(0.8f);
       motion = new TwoWayMotion(getTexture("Jojo-Running.png"), 50, 62, .2f, 1, 0);
       //motion.setHorizontal(false);
-      movement1 = new FourKeyMovement(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.RIGHT, Input.Keys.LEFT, true);
-      movement1.setSpeed(0.8f);
+      movement1 = new FourKeyMovement(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.RIGHT, Input.Keys.LEFT, 0.8f, true);
+//      movement1.setSpeed(0.8f);
       motion1 = new FourWayMotion(getTexture("DemoCharacter.jpg"), 64, 64, 0.2f, 3, 2, 0, 1);
+      spriteUpdate = new SpriteUpdate() {
+         @Override
+         public float getX() {
+            return x;
+         }
+
+         @Override
+         public float getY() {
+            return y;
+         }
+
+         @Override
+         public void setX(float nX) {
+            x = nX;
+         }
+
+         @Override
+         public void setY(float nY) {
+            y = nY;
+         }
+      };
    }
 
    @Override
    protected void renderChild(float deltaTime) {
+      if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+         viewport.getCamera().translate(-1f, 0f, 0f);
+      } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+         viewport.getCamera().translate(1f, 0f, 0f);
+      }
+
       //int x = 0;
       //int y = 0;
       //animation1.draw(batch, 100, 100);
@@ -81,7 +111,6 @@ public class InputScreen extends BaseScreen {
       //b = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
       //b = Gdx.input.isKeyPressed(Input.Keys.B);
       //b = Gdx.input.isKeyJustPressed(Input.Keys.A);
-
 //      if (b) {
 //         count++;
 //         System.out.println("Input: " + count);
@@ -110,11 +139,11 @@ public class InputScreen extends BaseScreen {
       //x = x + movement.getXUpdate();
       //y = y + movement.getYUpdate();
       //motion.draw(batch, x, y);
-      movement1.update(deltaTime);
+      movement1.update(deltaTime, spriteUpdate);
       motion1.update(deltaTime, movement1.getDirection());
-      x = x + movement1.getXUpdate();
-      y = y + movement1.getYUpdate();
-      motion1.draw(batch, x, y);
+//      x = x + movement1.getXUpdate();
+//      y = y + movement1.getYUpdate();
+      motion1.draw(batch, spriteUpdate.getX(), spriteUpdate.getY());
    }
 
 }

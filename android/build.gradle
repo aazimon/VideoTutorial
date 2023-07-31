@@ -5,6 +5,9 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+    lintOptions {
+        checkReleaseBuilds false
+    }
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -26,6 +29,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
