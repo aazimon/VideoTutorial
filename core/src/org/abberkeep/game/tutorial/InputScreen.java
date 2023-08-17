@@ -77,6 +77,12 @@ public class InputScreen extends BaseScreen {
          }
 
          @Override
+         public void setLocation(float nX, float nY) {
+            x = nX;
+            y = nY;
+         }
+
+         @Override
          public void setX(float nX) {
             x = nX;
          }
