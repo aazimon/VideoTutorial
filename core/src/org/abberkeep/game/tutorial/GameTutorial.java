@@ -12,7 +12,8 @@ public class GameTutorial extends BaseGame {
       //MotionScreen screen = new MotionScreen();
       //InputScreen screen = new InputScreen();
       //MouseMovementScreen screen = new MouseMovementScreen();
-      SpriteScreen screen = new SpriteScreen();
+      //SpriteScreen screen = new SpriteScreen();
+      SoundScreen screen = new SoundScreen();
       screen.resize(400, 600);
       setScreen(screen);
 
