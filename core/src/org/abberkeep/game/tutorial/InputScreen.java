@@ -25,6 +25,8 @@ import org.abberkeep.gameframework.motion.TwoWayMotion;
 import org.abberkeep.gameframework.movement.FourKeyMovement;
 import org.abberkeep.gameframework.movement.TwoKeyMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.Decor;
 import org.abberkeep.gameframework.sprite.SpriteUpdate;
 
 /**
@@ -150,6 +152,16 @@ public class InputScreen extends BaseScreen {
 //      x = x + movement1.getXUpdate();
 //      y = y + movement1.getYUpdate();
       motion1.draw(batch, spriteUpdate.getX(), spriteUpdate.getY());
+   }
+
+   @Override
+   public void addActor(Actor actor) {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   @Override
+   public void addDecor(Decor decor) {
+      throw new UnsupportedOperationException("Not supported yet.");
    }
 
 }

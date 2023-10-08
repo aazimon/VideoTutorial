@@ -22,6 +22,8 @@ import org.abberkeep.gameframework.animation.BounceAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.animation.RandomAnimation;
 import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.Decor;
 
 /**
  * Title: AnimationScreen
@@ -126,6 +128,16 @@ public class AnimationScreen extends BaseScreen {
             throw new AssertionError();
       }
 
+   }
+
+   @Override
+   public void addActor(Actor actor) {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   @Override
+   public void addDecor(Decor decor) {
+      throw new UnsupportedOperationException("Not supported yet.");
    }
 
 }

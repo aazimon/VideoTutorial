@@ -26,6 +26,8 @@ import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.movement.MouseMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
 import org.abberkeep.gameframework.screen.ScreenInput;
+import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.Decor;
 import org.abberkeep.gameframework.sprite.SpriteUpdate;
 
 /**
@@ -116,6 +118,16 @@ public class MouseMovementScreen extends BaseScreen {
       wallAnimation = new StaticAnimation(getTexture("Wall.png"));
       wallAnimation2 = new StaticAnimation(getTexture("Wall.png"));
       wallAnimation2.setTranslucency(0.6f);
+   }
+
+   @Override
+   public void addActor(Actor actor) {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   @Override
+   public void addDecor(Decor decor) {
+      throw new UnsupportedOperationException("Not supported yet.");
    }
 
    @Override
