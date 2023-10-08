@@ -54,7 +54,7 @@ project(":desktop") {
 
     }
 }
-
+/*
 project(":android") {
     apply plugin: "com.android.application"
 
@@ -75,7 +75,7 @@ project(":android") {
 
     }
 }
-
+*/
 project(":ios") {
     apply plugin: "java-library"
     apply plugin: "robovm"

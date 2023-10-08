@@ -109,6 +109,16 @@ public class SpriteScreen extends BaseScreen {
    }
 
    @Override
+   public void addActor(Actor actor) {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   @Override
+   public void addDecor(Decor decor) {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   @Override
    protected void renderChild(float deltaTime) {
       actor.update(deltaTime);
       soda.update(deltaTime);

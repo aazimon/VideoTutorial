@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import org.abberkeep.gameframework.animation.StaticAnimation;
 import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.Decor;
 
 /**
  * Title: GameScreen
@@ -65,6 +67,16 @@ public class ImageScreen extends BaseScreen {
       //batch.setColor(Color.CLEAR);
       batch.setColor(Color.WHITE);
       //batch.draw(img, 300, y);
+   }
+
+   @Override
+   public void addActor(Actor actor) {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   @Override
+   public void addDecor(Decor decor) {
+      throw new UnsupportedOperationException("Not supported yet.");
    }
 
 }

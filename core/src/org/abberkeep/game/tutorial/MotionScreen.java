@@ -26,6 +26,8 @@ import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.motion.TwoWayMotion;
 import org.abberkeep.gameframework.movement.Direction;
 import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.Decor;
 
 /**
  * Title: AnimationScreen
@@ -120,6 +122,16 @@ public class MotionScreen extends BaseScreen {
 //      }
 //      twoWayMotion.update(deltaTime, direction);
 //      twoWayMotion.draw(batch, cx, cy);
+   }
+
+   @Override
+   public void addActor(Actor actor) {
+      throw new UnsupportedOperationException("Not supported yet.");
+   }
+
+   @Override
+   public void addDecor(Decor decor) {
+      throw new UnsupportedOperationException("Not supported yet.");
    }
 
 }
