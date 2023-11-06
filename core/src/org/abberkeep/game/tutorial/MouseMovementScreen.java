@@ -27,6 +27,7 @@ import org.abberkeep.gameframework.movement.MouseMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
 import org.abberkeep.gameframework.screen.ScreenInput;
 import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.BoundingBox;
 import org.abberkeep.gameframework.sprite.Decor;
 import org.abberkeep.gameframework.sprite.SpriteUpdate;
 
@@ -58,6 +59,11 @@ public class MouseMovementScreen extends BaseScreen {
       movement = new MouseMovement(Input.Buttons.LEFT, 1f);
       spriteUpdate = new SpriteUpdate() {
          @Override
+         public boolean contains(BoundingBox other) {
+            return false;
+         }
+
+         @Override
          public float getX() {
             return x;
          }
@@ -86,6 +92,11 @@ public class MouseMovementScreen extends BaseScreen {
       spriteUpdate2 = new SpriteUpdate() {
          float spX;
          float spY;
+
+         @Override
+         public boolean contains(BoundingBox other) {
+            return false;
+         }
 
          @Override
          public float getX() {

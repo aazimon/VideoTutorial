@@ -84,12 +84,10 @@ public class SoundScreen extends BaseScreen {
 
    @Override
    public void addActor(Actor actor) {
-      throw new UnsupportedOperationException("Not supported yet.");
    }
 
    @Override
    public void addDecor(Decor decor) {
-      throw new UnsupportedOperationException("Not supported yet.");
    }
 
 }

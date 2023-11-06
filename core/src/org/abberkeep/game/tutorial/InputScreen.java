@@ -26,6 +26,7 @@ import org.abberkeep.gameframework.movement.FourKeyMovement;
 import org.abberkeep.gameframework.movement.TwoKeyMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
 import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.BoundingBox;
 import org.abberkeep.gameframework.sprite.Decor;
 import org.abberkeep.gameframework.sprite.SpriteUpdate;
 
@@ -68,6 +69,11 @@ public class InputScreen extends BaseScreen {
 //      movement1.setSpeed(0.8f);
       motion1 = new FourWayMotion(getTexture("DemoCharacter.jpg"), 64, 64, 0.2f, 3, 2, 0, 1);
       spriteUpdate = new SpriteUpdate() {
+         @Override
+         public boolean contains(BoundingBox other) {
+            return false;
+         }
+
          @Override
          public float getX() {
             return x;
