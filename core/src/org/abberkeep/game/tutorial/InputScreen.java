@@ -91,6 +91,11 @@ public class InputScreen extends BaseScreen {
          }
 
          @Override
+         public void setRemove(boolean remove) {
+            //
+         }
+
+         @Override
          public void setX(float nX) {
             x = nX;
          }
@@ -99,6 +104,7 @@ public class InputScreen extends BaseScreen {
          public void setY(float nY) {
             y = nY;
          }
+
       };
    }
 

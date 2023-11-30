@@ -80,6 +80,11 @@ public class MouseMovementScreen extends BaseScreen {
          }
 
          @Override
+         public void setRemove(boolean remove) {
+            //
+         }
+
+         @Override
          public void setX(float nx) {
             x = nx;
          }
@@ -112,6 +117,11 @@ public class MouseMovementScreen extends BaseScreen {
          public void setLocation(float nX, float nY) {
             spX = nX;
             spY = nY;
+         }
+
+         @Override
+         public void setRemove(boolean remove) {
+            //
          }
 
          @Override
