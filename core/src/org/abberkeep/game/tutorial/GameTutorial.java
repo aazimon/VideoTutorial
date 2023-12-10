@@ -1,5 +1,6 @@
 package org.abberkeep.game.tutorial;
 
+import org.abberkeep.game.shootemup.ShootemUpScreen;
 import org.abberkeep.gameframework.BaseGame;
 
 public class GameTutorial extends BaseGame {
@@ -15,7 +16,8 @@ public class GameTutorial extends BaseGame {
       //SpriteScreen screen = new SpriteScreen();
       //SoundScreen screen = new SoundScreen();
       //SimpleTest screen = new SimpleTest();
-      ScriptScreen screen = new ScriptScreen();
+      //ScriptScreen screen = new ScriptScreen();
+      ShootemUpScreen screen = new ShootemUpScreen();
 
       setScreen(screen);
 
