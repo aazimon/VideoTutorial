@@ -58,11 +58,11 @@ public class ScriptScreen extends SimpleScreen {
 //      movement.addAction(new TimeMoveAction(Direction.NORTH, 0.8f, 2f, true));
       ScriptMovement movement = new ScriptMovement(new EasingAction(1f, Direction.EAST, 10f, TRI));
 
-      movement.addAction(new DestinationAction(250, 250, 1f, true));
-      movement.addAction(new DestinationAction(50, 250, 1f, true));
-      movement.addAction(new DestinationAction(50, 50, 1f, true));
-      movement.addAction(new DestinationAction(250, 50, 1f, true));
-      movement.addAction(new GoToAction(movement, 2));
+      movement.addAction(new DestinationAction(250, 250, 1f));
+      movement.addAction(new DestinationAction(50, 250, 1f));
+      movement.addAction(new DestinationAction(50, 50, 1f));
+      movement.addAction(new DestinationAction(250, 50, 1f));
+      movement.addAction(new GoToAction(movement, 1));
 
       Actor actor = new Actor(movement, motion, still);
       actor.setLocation(50, 50);

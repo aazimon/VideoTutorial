@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Gary Deken
+ * Copyright (c) 2022-2024 Gary Deken
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,55 +16,56 @@
  */
 package org.abberkeep.game.shootemup;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import org.abberkeep.gameframework.effects.ColorCycleEffect;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.Movement;
 import org.abberkeep.gameframework.sprite.Actor;
-import org.abberkeep.gameframework.sprite.Sprite;
 
 /**
- * Title: Laser
+ * Title: BaseShip
  *
  * <p>
  * Description: </p>
  *
- * Copyright (c) Dec 8, 2023
+ * Copyright (c) Jan 1, 2024
  * @author Gary Deken
  * @version
  */
-public class Laser extends Actor {
-   public static final int HEIGHT = 15;
-   public static final int WIDTH = 4;
-   private LaserFactory factory;
+public abstract class BaseShip extends Actor {
+   private ColorCycleEffect hitEffect;
+   private boolean hit = false;
+   private int maxHits;
 
-   public Laser(Movement movement, Motion[] moveMotion, Motion[] stillMotion, LaserFactory factory) {
+   public BaseShip(Movement movement, Motion moveMotion, Motion stillMotion, Color shipColor, int maxHits) {
       super(movement, moveMotion, stillMotion);
-      this.factory = factory;
+      hitEffect = new ColorCycleEffect(shipColor, Color.RED, .4f);
+      hitEffect.addColorCycle(shipColor, .4f);
+      this.maxHits = maxHits;
    }
 
-   @Override
-   public void handleCollision(Sprite other) {
-      if (other instanceof Obstacle) {
-         if (!((Obstacle) other).isDestroyed()) {
+   public void hit() {
+      if (!hit) {
+         hit = true;
+         maxHits--;
+         if (maxHits < 1) {
             setRemove(true);
-            ((Obstacle) other).hit();
-            factory.spriteRemoved(this);
          }
+         hitEffect.reset();
+         moveMotion[0].setColorEffect(hitEffect);
+         stillMotion[0].setColorEffect(hitEffect);
       }
-      if (other instanceof EnemyShip) {
-         setRemove(true);
-         ((EnemyShip) other).hit();
-         factory.spriteRemoved(this);
-      }
-      super.handleCollision(other);
    }
 
    @Override
    public void update(float deltaTime) {
       super.update(deltaTime);
-      if (y > Gdx.graphics.getHeight()) {
-         setRemove(true);
+      if (hit && hitEffect.isDone()) {
+         hit = false;
       }
+      updateChild(deltaTime);
    }
+
+   protected abstract void updateChild(float deltaTime);
 
 }

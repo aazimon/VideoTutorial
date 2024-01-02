@@ -19,9 +19,9 @@ package org.abberkeep.game.shootemup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.TwoKeyMovement;
-import org.abberkeep.gameframework.sprite.Actor;
 import org.abberkeep.gameframework.sprite.Sprite;
 
 /**
@@ -34,12 +34,12 @@ import org.abberkeep.gameframework.sprite.Sprite;
  * @author Gary Deken
  * @version
  */
-public class Ship extends Actor {
+public class Ship extends BaseShip {
    private Sound laserSound;
    private LaserFactory laserFactory;
 
    public Ship(Motion motion, LaserFactory factory, Sound laserSound) {
-      super(new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, 3f, true), motion, motion);
+      super(new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, 2.5f, true), motion, motion, Color.WHITE, 10);
       this.laserFactory = factory;
       this.laserSound = laserSound;
    }
@@ -50,13 +50,13 @@ public class Ship extends Actor {
          if (((Obstacle) other).isDestroyed()) {
             return;
          }
+         hit();
       }
       super.handleCollision(other);
    }
 
    @Override
-   public void update(float deltaTime) {
-      super.update(deltaTime);
+   public void updateChild(float deltaTime) {
       if (x < 5) {
          x = 5;
       } else if (x + width + 5 > Gdx.graphics.getWidth()) {

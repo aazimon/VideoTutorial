@@ -23,7 +23,7 @@ allprojects {
     ext {
         appName = "Game Tutorial"
         gdxVersion = '1.12.1'
-        frameworkVersion = '0.13'
+        frameworkVersion = '0.14'
         roboVMVersion = '2.3.12'
         box2DLightsVersion = '1.5'
         ashleyVersion = '1.7.3'

@@ -16,10 +16,8 @@
  */
 package org.abberkeep.game.shootemup;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import java.util.Random;
-import org.abberkeep.gameframework.Updatable;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.motion.SingleMotion;
@@ -41,14 +39,13 @@ import org.abberkeep.gameframework.sprite.ActorFactory;
  * @author Gary Deken
  * @version
  */
-public class ObstacleFactory extends ActorFactory<Obstacle> implements Updatable {
+public class ObstacleFactory extends ActorFactory<Obstacle> {
    private static Motion[] motion;
-   private float currentTime;
-   private Random random;
+   private Sound explosion;
 
-   public ObstacleFactory(BaseScreen baseScreen, Random random) {
+   public ObstacleFactory(BaseScreen baseScreen, Sound explosion) {
       super(baseScreen, 15);
-      this.random = random;
+      this.explosion = explosion;
       Motion motionMove = new SingleMotion(new BlockAnimation(20, 20));
       motionMove.setColor(Color.BROWN);
       Motion motionDestroy = new SingleMotion(new BlockAnimation(20, 20));
@@ -81,17 +78,7 @@ public class ObstacleFactory extends ActorFactory<Obstacle> implements Updatable
 
    @Override
    protected Obstacle construct(Movement buildMovement, Motion[] buildMoveMotions, Motion[] buildStillMotions) {
-      return new Obstacle(buildMovement(), buildMoveMotions(), buildStillMotions(), this);
-   }
-
-   @Override
-   public void update(float deltaTime) {
-      currentTime += deltaTime;
-
-      if (currentTime > 1f) {
-         createNewActor(random.nextInt(Gdx.graphics.getWidth()), Gdx.graphics.getHeight() + 20);
-         currentTime = 0;
-      }
+      return new Obstacle(buildMovement(), buildMoveMotions(), buildStillMotions(), explosion, this);
    }
 
 }

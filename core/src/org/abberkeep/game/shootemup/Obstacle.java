@@ -16,6 +16,7 @@
  */
 package org.abberkeep.game.shootemup;
 
+import com.badlogic.gdx.audio.Sound;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.Movement;
 import org.abberkeep.gameframework.movement.ScriptMovement;
@@ -35,10 +36,13 @@ import org.abberkeep.gameframework.sprite.Sprite;
  */
 public class Obstacle extends Actor {
    private boolean destroyed = false;
+   private Sound explosion;
    private ObstacleFactory factory;
 
-   public Obstacle(Movement movement, Motion[] moveMotion, Motion[] stillMotion, ObstacleFactory factory) {
+   public Obstacle(Movement movement, Motion[] moveMotion, Motion[] stillMotion, Sound explosion,
+      ObstacleFactory factory) {
       super(movement, moveMotion, stillMotion);
+      this.explosion = explosion;
       this.factory = factory;
    }
 
@@ -52,11 +56,22 @@ public class Obstacle extends Actor {
 
    @Override
    public void handleCollision(Sprite other) {
-      if (!destroyed) {
-         ((ScriptMovement) movement).nextAction();
-         currentMoveMotion = 1;
-         destroyed = true;
+      if (other instanceof EnemyShip) {
+         return;
       }
+      if (other instanceof Ship && !destroyed) {
+         ((Ship) other).hit();
+      }
+      if (!destroyed) {
+         hit();
+      }
+   }
+
+   public void hit() {
+      ((ScriptMovement) movement).nextAction();
+      currentMoveMotion = 1;
+      destroyed = true;
+      explosion.play();
    }
 
    public boolean isDestroyed() {

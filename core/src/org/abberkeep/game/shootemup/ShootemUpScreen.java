@@ -16,10 +16,15 @@
  */
 package org.abberkeep.game.shootemup;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import java.util.Random;
+import java.util.function.Supplier;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.motion.SingleMotion;
+import org.abberkeep.gameframework.movement.ScriptMovement;
+import org.abberkeep.gameframework.movement.actions.GoToAction;
+import org.abberkeep.gameframework.movement.actions.RandomDestinationAction;
 import org.abberkeep.gameframework.screen.SimpleScreen;
 
 /**
@@ -33,7 +38,6 @@ import org.abberkeep.gameframework.screen.SimpleScreen;
  * @version
  */
 public class ShootemUpScreen extends SimpleScreen {
-   private Random random;
 
    @Override
    public void show() {
@@ -48,11 +52,28 @@ public class ShootemUpScreen extends SimpleScreen {
 
       addActor(ship);
 
-      random = new Random(System.currentTimeMillis());
+      ObstacleFactory obstacleFactory = new ObstacleFactory(this, getSound("Obstacle Explosion.wav"));
+      Random random = new Random(System.currentTimeMillis());
+      RandomDestinationAction action = new RandomDestinationAction(() -> random.nextInt(10) * 10 + 100,
+         () -> Gdx.graphics.getHeight() - 80, 2.5f);
+      Supplier<Integer> randHeight = () -> height - 80 - (random.nextInt(5) * 15);
+      Supplier<Integer> randLeft = () -> 10 + (random.nextInt(10) * 10);
+      Supplier<Integer> randRight = () -> width - 100 - (random.nextInt(10) * 10);
+      RandomDestinationAction action2 = new RandomDestinationAction(randRight, randHeight, 2.5f);
+      action2.addGoal(randLeft, randHeight);
 
-      ObstacleFactory obstacleFactory = new ObstacleFactory(this, random);
+      ScriptMovement enemyMovement = new ScriptMovement(action);
+      enemyMovement.addAction(action2);
+      enemyMovement.addAction(new GoToAction(enemyMovement, 1));
 
-      addUpdatable(obstacleFactory);
+      BlockAnimation enemyAni = new BlockAnimation(100, 40);
+      enemyAni.setColor(Color.BLUE);
+      SingleMotion enemyMotion = new SingleMotion(enemyAni);
+      EnemyShip enemyShip = new EnemyShip(enemyMovement, enemyMotion);
+
+      EnemyManager manager = new EnemyManager(this, obstacleFactory, enemyShip);
+
+      addUpdatable(manager);
 
    }
 
