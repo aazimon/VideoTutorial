@@ -53,11 +53,11 @@ public class EnemyManager implements Updatable {
       obstacleTime += deltaTime;
       shipTime += deltaTime;
 
-      if (obstacleTime > 1f) {
+      if (obstacleTime > 1f && !enemyAdded) {
          obstacleFactory.createNewActor(random.nextInt(width) + 20, Gdx.graphics.getHeight() + 20);
          obstacleTime = 0;
       }
-      if (!enemyAdded && shipTime > 10f) {
+      if (!enemyAdded && shipTime > 5f) {
          enemyShip.setLocation(0, Gdx.graphics.getHeight() + 45);
          screen.addActor(enemyShip);
          enemyAdded = true;

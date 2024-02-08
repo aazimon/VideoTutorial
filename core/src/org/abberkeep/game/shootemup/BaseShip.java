@@ -16,6 +16,7 @@
  */
 package org.abberkeep.game.shootemup;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.effects.ColorCycleEffect;
 import org.abberkeep.gameframework.motion.Motion;
@@ -36,24 +37,28 @@ public abstract class BaseShip extends Actor {
    private ColorCycleEffect hitEffect;
    private boolean hit = false;
    private int maxHits;
+   private Sound hitSound;
 
-   public BaseShip(Movement movement, Motion moveMotion, Motion stillMotion, Color shipColor, int maxHits) {
+   public BaseShip(Movement movement, Motion moveMotion, Motion stillMotion, Color shipColor, int maxHits,
+      Sound hitSound) {
       super(movement, moveMotion, stillMotion);
       hitEffect = new ColorCycleEffect(shipColor, Color.RED, .4f);
       hitEffect.addColorCycle(shipColor, .4f);
       this.maxHits = maxHits;
+      this.hitSound = hitSound;
    }
 
    public void hit() {
       if (!hit) {
          hit = true;
          maxHits--;
+         hitSound.play();
          if (maxHits < 1) {
             setRemove(true);
          }
          hitEffect.reset();
-         moveMotion[0].setColorEffect(hitEffect);
-         stillMotion[0].setColorEffect(hitEffect);
+         moveMotion[0].addEffects(hitEffect);
+         stillMotion[0].addEffects(hitEffect);
       }
    }
 

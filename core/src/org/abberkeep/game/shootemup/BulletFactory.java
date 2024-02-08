@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Gary Deken
+ * Copyright (c) 2022-2024 Gary Deken
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,53 +16,57 @@
  */
 package org.abberkeep.game.shootemup;
 
-import org.abberkeep.gameframework.animation.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.movement.Direction;
 import org.abberkeep.gameframework.movement.Movement;
-import org.abberkeep.gameframework.movement.SingleMovement;
+import org.abberkeep.gameframework.movement.ScriptMovement;
+import org.abberkeep.gameframework.movement.actions.MoveAction;
 import org.abberkeep.gameframework.screen.BaseScreen;
 import org.abberkeep.gameframework.sprite.ActorFactory;
 
 /**
- * Title: LaserFactory
+ * Title: BulletFactory
  *
  * <p>
  * Description: </p>
  *
- * Copyright (c) Dec 8, 2023
+ * Copyright (c) Jan 26, 2024
  * @author Gary Deken
  * @version
  */
-public class LaserFactory extends ActorFactory<Laser> {
-   private Motion[] laserMotion;
+public class BulletFactory extends ActorFactory<Bullet> {
+   private TextureRegion[] bullet;
 
-   public LaserFactory(BaseScreen baseScreen, Animation animation) {
-      super(baseScreen, 10);
-      this.laserMotion = new Motion[1];
-      this.laserMotion[0] = new SingleMotion(animation);
+   public BulletFactory(BaseScreen baseScreen, TextureRegion[] bullet) {
+      super(baseScreen);
+      this.bullet = bullet;
+      queueSize = 20;
       setupQueue();
    }
 
    @Override
    protected Movement buildMovement() {
-      return new SingleMovement(4f, Direction.NORTH);
+      ScriptMovement movement = new ScriptMovement(new MoveAction(Direction.SOUTH, 4f));
+
+      return movement;
    }
 
    @Override
    protected Motion[] buildMoveMotions() {
-      return laserMotion;
+      return new Motion[]{new SingleMotion(new LoopAnimation(.1f, bullet))};
    }
 
    @Override
    protected Motion[] buildStillMotions() {
-      return laserMotion;
+      return null;
    }
 
    @Override
-   protected Laser construct(Movement buildMovement, Motion[] buildMoveMotions, Motion[] buildStillMotions) {
-      return new Laser(buildMovement, buildMoveMotions, buildStillMotions);
+   protected Bullet construct(Movement buildMovement, Motion[] buildMoveMotions, Motion[] buildStillMotions) {
+      return new Bullet(buildMovement, buildMoveMotions, buildMoveMotions);
    }
 
 }

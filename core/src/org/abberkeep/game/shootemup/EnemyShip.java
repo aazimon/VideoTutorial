@@ -16,6 +16,7 @@
  */
 package org.abberkeep.game.shootemup;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.Movement;
@@ -32,9 +33,14 @@ import org.abberkeep.gameframework.sprite.Sprite;
  * @version
  */
 public class EnemyShip extends BaseShip {
+   private BulletFactory bullets;
+   private float bulletTime = -1f;
+   private boolean firing = false;
+   private int bulletCount = 0;
 
-   public EnemyShip(Movement movement, Motion motion) {
-      super(movement, motion, motion, Color.BLUE, 5);
+   public EnemyShip(Movement movement, Motion motion, Sound hitSound, BulletFactory factory) {
+      super(movement, motion, motion, Color.BLUE, 5, hitSound);
+      this.bullets = factory;
    }
 
    @Override
@@ -43,7 +49,24 @@ public class EnemyShip extends BaseShip {
 
    @Override
    protected void updateChild(float deltaTime) {
-      //
+      bulletTime += deltaTime;
+      if (!firing && bulletTime > 2f) {
+         firing = true;
+      }
+      if (firing) {
+         if (bulletTime > .2f) {
+            bulletCount++;
+            bulletTime = 0f;
+            // ship width of 100
+            bullets.createNewActor(getX() + 25, getY() - 16);
+            bullets.createNewActor(getX() + 75, getY() - 16);
+         }
+         if (bulletCount > 9) {
+            firing = false;
+            bulletTime = 0;
+            bulletCount = 0;
+         }
+      }
    }
 
 }

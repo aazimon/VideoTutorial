@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022-2023 Gary Deken
+ * Copyright (c) 2022-2024 Gary Deken
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,80 +16,41 @@
  */
 package org.abberkeep.game.shootemup;
 
-import com.badlogic.gdx.audio.Sound;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.Movement;
-import org.abberkeep.gameframework.movement.ScriptMovement;
-import org.abberkeep.gameframework.sprite.BoundingBox;
 import org.abberkeep.gameframework.sprite.ForgedActor;
 import org.abberkeep.gameframework.sprite.Sprite;
 
 /**
- * Title: Obstacle
+ * Title: Bullet
  *
  * <p>
  * Description: </p>
  *
- * Copyright (c) Dec 9, 2023
+ * Copyright (c) Jan 26, 2024
  * @author Gary Deken
  * @version
  */
-public class Obstacle extends ForgedActor {
-   private boolean destroyed = false;
-   private Sound explosion;
-   private ObstacleFactory factory;
+public class Bullet extends ForgedActor {
 
-   public Obstacle(Movement movement, Motion[] moveMotion, Motion[] stillMotion, Sound explosion) {
+   public Bullet(Movement movement, Motion[] moveMotion, Motion[] stillMotion) {
       super(movement, moveMotion, stillMotion);
-      this.explosion = explosion;
-   }
-
-   @Override
-   public boolean contains(BoundingBox other) {
-      if (destroyed) {
-         return false;
-      }
-      return super.contains(other);
    }
 
    @Override
    public void handleCollision(Sprite other) {
-      if (other instanceof EnemyShip) {
+      if (other instanceof Laser) {
          return;
       }
-      if (other instanceof Ship && !destroyed) {
+      if (other instanceof Ship) {
          ((Ship) other).hit();
       }
-      if (!destroyed) {
-         hit();
-      }
-   }
-
-   public void hit() {
-      ((ScriptMovement) movement).nextAction();
-      currentMoveMotion = 1;
-      destroyed = true;
-      explosion.play();
-   }
-
-   public boolean isDestroyed() {
-      return destroyed;
-   }
-
-   @Override
-   public void reset() {
-      super.reset();
-      currentMoveMotion = 0;
-      destroyed = false;
    }
 
    @Override
    public void update(float deltaTime) {
       super.update(deltaTime);
       if (y + height < 0) {
-         setRemove(true);
-      }
-      if (destroyed && ((ScriptMovement) movement).isDone()) {
          setRemove(true);
       }
    }

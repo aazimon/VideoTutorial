@@ -38,8 +38,8 @@ public class Ship extends BaseShip {
    private Sound laserSound;
    private LaserFactory laserFactory;
 
-   public Ship(Motion motion, LaserFactory factory, Sound laserSound) {
-      super(new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, 2.5f, true), motion, motion, Color.WHITE, 10);
+   public Ship(Motion motion, LaserFactory factory, Sound hitSound, Sound laserSound) {
+      super(new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, 2.5f, true), motion, motion, Color.WHITE, 10, hitSound);
       this.laserFactory = factory;
       this.laserSound = laserSound;
    }

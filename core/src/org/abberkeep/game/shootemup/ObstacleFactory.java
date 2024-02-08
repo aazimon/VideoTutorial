@@ -19,6 +19,7 @@ package org.abberkeep.game.shootemup;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.animation.BlockAnimation;
+import org.abberkeep.gameframework.effects.TranslucencyEffect;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.movement.Direction;
@@ -41,18 +42,15 @@ import org.abberkeep.gameframework.sprite.ActorFactory;
  */
 public class ObstacleFactory extends ActorFactory<Obstacle> {
    private static Motion[] motion;
+   private BlockAnimation animation;
    private Sound explosion;
 
    public ObstacleFactory(BaseScreen baseScreen, Sound explosion) {
       super(baseScreen, 15);
       this.explosion = explosion;
-      Motion motionMove = new SingleMotion(new BlockAnimation(20, 20));
-      motionMove.setColor(Color.BROWN);
-      Motion motionDestroy = new SingleMotion(new BlockAnimation(20, 20));
-      motionDestroy.setColor(Color.RED);
-      motion = new Motion[2];
-      motion[0] = motionMove;
-      motion[1] = motionDestroy;
+      animation = new BlockAnimation(20, 20);
+      animation.setColor(Color.BROWN);
+      motion = new Motion[]{new SingleMotion(animation)};
       setupQueue();
    }
 
@@ -68,7 +66,14 @@ public class ObstacleFactory extends ActorFactory<Obstacle> {
 
    @Override
    protected Motion[] buildMoveMotions() {
-      return motion;
+      Motion motionMove = new SingleMotion(animation);
+      Motion motionDestroy = new SingleMotion(new BlockAnimation(20, 20));
+      motionDestroy.setColor(Color.RED);
+      TranslucencyEffect effectDestory = new TranslucencyEffect(1f, 1f);
+      effectDestory.addTranslucency(0f, 1f);
+      motionDestroy.addEffects(effectDestory);
+
+      return new Motion[]{motionMove, motionDestroy};
    }
 
    @Override
@@ -78,7 +83,7 @@ public class ObstacleFactory extends ActorFactory<Obstacle> {
 
    @Override
    protected Obstacle construct(Movement buildMovement, Motion[] buildMoveMotions, Motion[] buildStillMotions) {
-      return new Obstacle(buildMovement(), buildMoveMotions(), buildStillMotions(), explosion, this);
+      return new Obstacle(buildMovement, buildMoveMotions, buildStillMotions, explosion);
    }
 
 }

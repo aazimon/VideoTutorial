@@ -18,6 +18,7 @@ package org.abberkeep.game.shootemup;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.Random;
 import java.util.function.Supplier;
 import org.abberkeep.gameframework.animation.BlockAnimation;
@@ -47,12 +48,26 @@ public class ShootemUpScreen extends SimpleScreen {
 
       BlockAnimation shipAni = new BlockAnimation(100, 40);
       SingleMotion shipMotion = new SingleMotion(shipAni);
-      Ship ship = new Ship(shipMotion, laserFactory, getSound("Laser.wav"));
+      Ship ship = new Ship(shipMotion, laserFactory, getSound("ShipHit.wav"), getSound("Laser.wav"));
       ship.setLocation(width / 2 - 50, 60);
 
       addActor(ship);
 
       ObstacleFactory obstacleFactory = new ObstacleFactory(this, getSound("Obstacle Explosion.wav"));
+      EnemyShip enemyShip = buildEnemyShip();
+
+      EnemyManager manager = new EnemyManager(this, obstacleFactory, enemyShip);
+
+      addUpdatable(manager);
+
+   }
+
+   private BulletFactory buildBullerFactory() {
+      TextureRegion[][] bullets = TextureRegion.split(getTexture("Bullet.png"), 15, 15);
+      return new BulletFactory(this, bullets[0]);
+   }
+
+   private EnemyShip buildEnemyShip() {
       Random random = new Random(System.currentTimeMillis());
       RandomDestinationAction action = new RandomDestinationAction(() -> random.nextInt(10) * 10 + 100,
          () -> Gdx.graphics.getHeight() - 80, 2.5f);
@@ -61,20 +76,15 @@ public class ShootemUpScreen extends SimpleScreen {
       Supplier<Integer> randRight = () -> width - 100 - (random.nextInt(10) * 10);
       RandomDestinationAction action2 = new RandomDestinationAction(randRight, randHeight, 2.5f);
       action2.addGoal(randLeft, randHeight);
-
       ScriptMovement enemyMovement = new ScriptMovement(action);
       enemyMovement.addAction(action2);
       enemyMovement.addAction(new GoToAction(enemyMovement, 1));
-
       BlockAnimation enemyAni = new BlockAnimation(100, 40);
       enemyAni.setColor(Color.BLUE);
       SingleMotion enemyMotion = new SingleMotion(enemyAni);
-      EnemyShip enemyShip = new EnemyShip(enemyMovement, enemyMotion);
+      EnemyShip enemyShip = new EnemyShip(enemyMovement, enemyMotion, getSound("EnemyHit.wav"), buildBullerFactory());
 
-      EnemyManager manager = new EnemyManager(this, obstacleFactory, enemyShip);
-
-      addUpdatable(manager);
-
+      return enemyShip;
    }
 
 }

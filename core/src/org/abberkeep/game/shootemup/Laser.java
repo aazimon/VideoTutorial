@@ -19,7 +19,7 @@ package org.abberkeep.game.shootemup;
 import com.badlogic.gdx.Gdx;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.Movement;
-import org.abberkeep.gameframework.sprite.Actor;
+import org.abberkeep.gameframework.sprite.ForgedActor;
 import org.abberkeep.gameframework.sprite.Sprite;
 
 /**
@@ -32,14 +32,12 @@ import org.abberkeep.gameframework.sprite.Sprite;
  * @author Gary Deken
  * @version
  */
-public class Laser extends Actor {
+public class Laser extends ForgedActor {
    public static final int HEIGHT = 15;
    public static final int WIDTH = 4;
-   private LaserFactory factory;
 
-   public Laser(Movement movement, Motion[] moveMotion, Motion[] stillMotion, LaserFactory factory) {
+   public Laser(Movement movement, Motion[] moveMotion, Motion[] stillMotion) {
       super(movement, moveMotion, stillMotion);
-      this.factory = factory;
    }
 
    @Override
@@ -48,13 +46,11 @@ public class Laser extends Actor {
          if (!((Obstacle) other).isDestroyed()) {
             setRemove(true);
             ((Obstacle) other).hit();
-            factory.spriteRemoved(this);
          }
       }
       if (other instanceof EnemyShip) {
          setRemove(true);
          ((EnemyShip) other).hit();
-         factory.spriteRemoved(this);
       }
       super.handleCollision(other);
    }
