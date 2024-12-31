@@ -18,9 +18,11 @@ package org.abberkeep.game.tutorial;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.LayeredAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.animation.StaticAnimation;
+import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.motion.TwoWayMotion;
@@ -51,7 +53,7 @@ public class MotionScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackgroundColor(Color.WHITE);
+      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("Magic-Ring.png"), 39, 48);
 
       StaticAnimation egg = new StaticAnimation(getTexture("Egg.png"));

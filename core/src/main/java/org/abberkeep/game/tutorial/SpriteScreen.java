@@ -17,13 +17,14 @@
 package org.abberkeep.game.tutorial;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.LayeredAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.animation.StaticAnimation;
 import org.abberkeep.gameframework.animation.StaticRegionAnimation;
+import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.MouseMovement;
@@ -56,7 +57,7 @@ public class SpriteScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackgroundColor(Color.WHITE);
+      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
 //      motion = new FourWayMotion(getTexture("DemoCharacterA.png"), 64, 64, 0.2f, 3, 2, 0, 1);
 //      movement = new MouseMovement(Input.Buttons.LEFT, 1f);
       Texture texture = getTexture("DemoCharacterA.png");

@@ -20,6 +20,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.animation.BlockAnimation;
+import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.motion.TwoWayMotion;
 import org.abberkeep.gameframework.movement.FourKeyMovement;
@@ -55,7 +56,7 @@ public class InputScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackgroundColor(Color.WHITE);
+      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       animation = new BlockAnimation(20, 20);
       animation.setColor(Color.BLUE);
       animation1 = new BlockAnimation(20, 20);
@@ -71,6 +72,11 @@ public class InputScreen extends BaseScreen {
       spriteUpdate = new SpriteUpdate() {
          @Override
          public boolean contains(BoundingBox other) {
+            return false;
+         }
+
+         @Override
+         public boolean contains(int x, int y) {
             return false;
          }
 

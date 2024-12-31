@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.animation.Animation;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.StaticAnimation;
+import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.movement.MouseMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
@@ -54,12 +55,17 @@ public class MouseMovementScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackgroundColor(Color.WHITE);
+      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       motion1 = new FourWayMotion(getTexture("DemoCharacterA.png"), 64, 64, 0.2f, 3, 2, 0, 1);
       movement = new MouseMovement(Input.Buttons.LEFT, 1f);
       spriteUpdate = new SpriteUpdate() {
          @Override
          public boolean contains(BoundingBox other) {
+            return false;
+         }
+
+         @Override
+         public boolean contains(int x, int y) {
             return false;
          }
 
@@ -100,6 +106,11 @@ public class MouseMovementScreen extends BaseScreen {
 
          @Override
          public boolean contains(BoundingBox other) {
+            return false;
+         }
+
+         @Override
+         public boolean contains(int x, int y) {
             return false;
          }
 
