@@ -6,7 +6,9 @@ package org.abberkeep.game.tutorial;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.StaticAnimation;
+import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.screen.BaseScreen;
 import org.abberkeep.gameframework.sprite.Actor;
 import org.abberkeep.gameframework.sprite.Decor;
@@ -29,7 +31,7 @@ public class ImageScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackgroundColor(Color.WHITE);
+      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       img = getTexture("DemoPortait.png");
       sa1 = new StaticAnimation(img);
       sa2 = new StaticAnimation(img, 100, 200);

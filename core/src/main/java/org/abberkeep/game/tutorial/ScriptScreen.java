@@ -18,10 +18,11 @@ package org.abberkeep.game.tutorial;
 
 import static org.abberkeep.gameframework.movement.actions.EasingAction.EASING_POWER.TRI;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.StaticRegionAnimation;
+import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.movement.Direction;
 import org.abberkeep.gameframework.movement.ScriptMovement;
@@ -45,7 +46,7 @@ public class ScriptScreen extends SimpleScreen {
 
    @Override
    public void show() {
-      setBackgroundColor(Color.WHITE);
+      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       Texture texture = getTexture("DemoCharacter2A.png");
       FourWayMotion motion = new FourWayMotion(texture, 64, 64, .2f, 3, 2, 0, 1);
       TextureRegion[][] textReg = TextureRegion.split(texture, 64, 64);
