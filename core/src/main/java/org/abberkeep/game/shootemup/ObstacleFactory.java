@@ -27,7 +27,7 @@ import org.abberkeep.gameframework.movement.Movement;
 import org.abberkeep.gameframework.movement.ScriptMovement;
 import org.abberkeep.gameframework.movement.actions.EasingAction;
 import org.abberkeep.gameframework.movement.actions.MoveAction;
-import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.screen.map.GameMap;
 import org.abberkeep.gameframework.sprite.ActorFactory;
 
 /**
@@ -45,8 +45,8 @@ public class ObstacleFactory extends ActorFactory<Obstacle> {
    private BlockAnimation animation;
    private Sound explosion;
 
-   public ObstacleFactory(BaseScreen baseScreen, Sound explosion) {
-      super(baseScreen, 15);
+   public ObstacleFactory(GameMap gameMap, Sound explosion) {
+      super(gameMap, 15);
       this.explosion = explosion;
       animation = new BlockAnimation(20, 20);
       animation.setColor(Color.BROWN);

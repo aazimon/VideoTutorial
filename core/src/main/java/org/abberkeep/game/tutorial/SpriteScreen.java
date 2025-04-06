@@ -18,7 +18,9 @@ package org.abberkeep.game.tutorial;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.game.test.SimpleRenderMap;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.LayeredAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
@@ -107,26 +109,16 @@ public class SpriteScreen extends BaseScreen {
       animation.addAnimation(treeTop);
       tree = new Decor(animation);
       tree.setLocation(200, 105);
-   }
 
-   @Override
-   public void addActor(Actor actor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
-   public void addDecor(Decor decor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
-   protected void renderChild(float deltaTime) {
-      actor.update(deltaTime);
-      soda.update(deltaTime);
-      tree.update(deltaTime);
-      actor.draw(batch);
-      soda.draw(batch);
-      tree.draw(batch);
+      SimpleRenderMap map = new SimpleRenderMap() {
+         @Override
+         public void render(float deltaTime, SpriteBatch batch) {
+            actor.update(deltaTime);
+            soda.update(deltaTime);
+            tree.update(deltaTime);
+            actor.draw(batch);
+            soda.draw(batch);
+            tree.draw(batch);
 
 //      tree2Animation.update(deltaTime);
 //      movement.update(deltaTime, sprite);
@@ -135,6 +127,9 @@ public class SpriteScreen extends BaseScreen {
 //      sodaAnimation.draw(batch, 50, 200);
 //      treeAnimation.draw(batch, 200, 105);
 //      tree2Animation.draw(batch, 200, 159);
+         }
+      };
+      setGameMap(map);
    }
 
 }

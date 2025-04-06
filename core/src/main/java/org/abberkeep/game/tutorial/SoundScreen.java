@@ -20,9 +20,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import org.abberkeep.game.test.SimpleRenderMap;
 import org.abberkeep.gameframework.screen.BaseScreen;
-import org.abberkeep.gameframework.sprite.Actor;
-import org.abberkeep.gameframework.sprite.Decor;
 
 /**
  * Title: SoundScreen
@@ -46,48 +46,43 @@ public class SoundScreen extends BaseScreen {
       String f2 = "Explosion3.wav";
       String f3 = "Hello.wav";
       s = getSound(f3);
-      m = getMusic(f2);
-   }
-
-   @Override
-   protected void renderChild(float deltaTime) {
-      if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-         id = s.play();
-         //s.setPan(id, 1f, .6f);
-         //s.setLooping(id, true);
-         s.setPitch(id, 1.6f);
-      }
-      if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-         m.play();
-         m.setVolume(.5f);
-      }
-      if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-         if (paused) {
-            s.resume();
-            //m.play();
-            paused = false;
-         } else {
-            s.pause();
-            //m.pause();
-            paused = true;
+      m = getMusic(f1);
+      SimpleRenderMap map = new SimpleRenderMap() {
+         @Override
+         public void render(float deltaTime, SpriteBatch batch) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+               id = s.play();
+               //s.setPan(id, 1f, .6f);
+               //s.setLooping(id, true);
+               s.setPitch(id, 1.6f);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+               m.play();
+               m.setVolume(.5f);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+               if (paused) {
+                  s.resume();
+                  //m.play();
+                  paused = false;
+               } else {
+                  s.pause();
+                  //m.pause();
+                  paused = true;
+               }
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+               //m.stop();
+               s.setLooping(id, false);
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
+               //m.setPosition(60f);
+            }
+            //System.out.println(m.getPosition());
          }
-      }
-      if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
-         //m.stop();
-         s.setLooping(id, false);
-      }
-      if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
-         //m.setPosition(60f);
-      }
-      //System.out.println(m.getPosition());
-   }
+      };
 
-   @Override
-   public void addActor(Actor actor) {
-   }
-
-   @Override
-   public void addDecor(Decor decor) {
+      setGameMap(map);
    }
 
 }

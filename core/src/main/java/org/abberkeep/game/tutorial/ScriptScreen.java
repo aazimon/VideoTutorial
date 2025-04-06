@@ -29,7 +29,8 @@ import org.abberkeep.gameframework.movement.ScriptMovement;
 import org.abberkeep.gameframework.movement.actions.DestinationAction;
 import org.abberkeep.gameframework.movement.actions.EasingAction;
 import org.abberkeep.gameframework.movement.actions.GoToAction;
-import org.abberkeep.gameframework.screen.SimpleScreen;
+import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.screen.map.SimpleSpriteMap;
 import org.abberkeep.gameframework.sprite.Actor;
 
 /**
@@ -42,7 +43,7 @@ import org.abberkeep.gameframework.sprite.Actor;
  * @author Gary Deken
  * @version
  */
-public class ScriptScreen extends SimpleScreen {
+public class ScriptScreen extends BaseScreen {
 
    @Override
    public void show() {
@@ -68,7 +69,10 @@ public class ScriptScreen extends SimpleScreen {
       Actor actor = new Actor(movement, motion, still);
       actor.setLocation(50, 50);
 
-      addActor(actor);
+      SimpleSpriteMap map = new SimpleSpriteMap(1);
+
+      map.addActor(actor);
+      setGameMap(map);
    }
 
 }

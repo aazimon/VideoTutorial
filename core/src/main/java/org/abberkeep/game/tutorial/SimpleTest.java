@@ -25,7 +25,8 @@ import org.abberkeep.gameframework.animation.StaticRegionAnimation;
 import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.motion.Motion;
 import org.abberkeep.gameframework.movement.MouseMovement;
-import org.abberkeep.gameframework.screen.SimpleScreen;
+import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.screen.map.SimpleSpriteMap;
 import org.abberkeep.gameframework.sound.RandomSound;
 import org.abberkeep.gameframework.sprite.Actor;
 import org.abberkeep.gameframework.sprite.Decor;
@@ -40,7 +41,7 @@ import org.abberkeep.gameframework.sprite.Decor;
  * @author Gary Deken
  * @version
  */
-public class SimpleTest extends SimpleScreen {
+public class SimpleTest extends BaseScreen {
 
    @Override
    public void show() {
@@ -71,24 +72,27 @@ public class SimpleTest extends SimpleScreen {
       rs.addSound(s4);
       actor.getMoveMotions()[0].setSound(rs);
 
-      addActor(actor);
+      SimpleSpriteMap map = new SimpleSpriteMap(1);
+
+      map.addActor(actor);
 
       Decor soda = new Decor(new StaticAnimation(getTexture("Osaka-Soda.png")));
       soda.setLocation(150, 200);
-      addDecor(soda);
+      map.addDecor(soda);
 
       Decor sodaRight = new Decor(new StaticAnimation(getTexture("Osaka-Soda.png")));
       sodaRight.setLocation(350, 200);
-      addDecor(sodaRight);
+      map.addDecor(sodaRight);
 
       Decor sodaUp = new Decor(new StaticAnimation(getTexture("Osaka-Soda.png")));
       sodaUp.setLocation(250, 350);
-      addDecor(sodaUp);
+      map.addDecor(sodaUp);
 
       Decor sodaLeft = new Decor(new StaticAnimation(getTexture("Osaka-Soda.png")));
       sodaLeft.setLocation(250, 50);
-      addDecor(sodaLeft);
+      map.addDecor(sodaLeft);
 
+      setGameMap(map);
    }
 
 }

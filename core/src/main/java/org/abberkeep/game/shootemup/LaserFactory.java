@@ -22,7 +22,7 @@ import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.movement.Direction;
 import org.abberkeep.gameframework.movement.Movement;
 import org.abberkeep.gameframework.movement.SingleMovement;
-import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.screen.map.GameMap;
 import org.abberkeep.gameframework.sprite.ActorFactory;
 
 /**
@@ -38,8 +38,8 @@ import org.abberkeep.gameframework.sprite.ActorFactory;
 public class LaserFactory extends ActorFactory<Laser> {
    private Motion[] laserMotion;
 
-   public LaserFactory(BaseScreen baseScreen, Animation animation) {
-      super(baseScreen, 10);
+   public LaserFactory(GameMap gameMap, Animation animation) {
+      super(gameMap, 10);
       this.laserMotion = new Motion[1];
       this.laserMotion[0] = new SingleMotion(animation);
       setupQueue();

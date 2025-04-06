@@ -19,6 +19,8 @@ package org.abberkeep.game.tutorial;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import org.abberkeep.game.test.SimpleRenderMap;
 import org.abberkeep.gameframework.animation.Animation;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.StaticAnimation;
@@ -27,9 +29,7 @@ import org.abberkeep.gameframework.motion.FourWayMotion;
 import org.abberkeep.gameframework.movement.MouseMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
 import org.abberkeep.gameframework.screen.ScreenInput;
-import org.abberkeep.gameframework.sprite.Actor;
 import org.abberkeep.gameframework.sprite.BoundingBox;
-import org.abberkeep.gameframework.sprite.Decor;
 import org.abberkeep.gameframework.sprite.SpriteUpdate;
 
 /**
@@ -65,8 +65,13 @@ public class MouseMovementScreen extends BaseScreen {
          }
 
          @Override
-         public boolean contains(int x, int y) {
+         public boolean contains(int x, int y, int layer) {
             return false;
+         }
+
+         @Override
+         public int getLayer() {
+            return 0;
          }
 
          @Override
@@ -77,6 +82,11 @@ public class MouseMovementScreen extends BaseScreen {
          @Override
          public float getY() {
             return y;
+         }
+
+         @Override
+         public void setLayer(int layer) {
+            //
          }
 
          @Override
@@ -110,8 +120,13 @@ public class MouseMovementScreen extends BaseScreen {
          }
 
          @Override
-         public boolean contains(int x, int y) {
+         public boolean contains(int x, int y, int layer) {
             return false;
+         }
+
+         @Override
+         public int getLayer() {
+            return 0;
          }
 
          @Override
@@ -122,6 +137,11 @@ public class MouseMovementScreen extends BaseScreen {
          @Override
          public float getY() {
             return spY;
+         }
+
+         @Override
+         public void setLayer(int layer) {
+            //
          }
 
          @Override
@@ -150,43 +170,37 @@ public class MouseMovementScreen extends BaseScreen {
       wallAnimation = new StaticAnimation(getTexture("Wall.png"));
       wallAnimation2 = new StaticAnimation(getTexture("Wall.png"));
       wallAnimation2.setTranslucency(0.6f);
-   }
 
-   @Override
-   public void addActor(Actor actor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
-   public void addDecor(Decor decor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
-   protected void renderChild(float deltaTime) {
-      if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-         spriteUpdate2.setX(ScreenInput.getX());
-         spriteUpdate2.setY(ScreenInput.getY());
-      }
-      if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-         viewport.getCamera().translate(-1f, 0f, 0f);
-      } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-         viewport.getCamera().translate(1f, 0f, 0f);
-      } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-         viewport.getCamera().translate(0f, 1f, 0f);
-      } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-         viewport.getCamera().translate(0f, -1f, 0f);
-      }
-      wallAnimation.draw(batch, 200, 5);
-      movement.update(deltaTime, spriteUpdate);
-      motion1.update(deltaTime, movement.getDirection());
-      motion1.draw(batch, spriteUpdate.getX(), spriteUpdate.getY());
-      if (spriteUpdate.getX() >= 200 - motion1.getWidth() && spriteUpdate.getX() <= 220) {
-         wallAnimation2.draw(batch, 200, 5);
+      SimpleRenderMap map = new SimpleRenderMap() {
+         @Override
+         public void render(float deltaTime, SpriteBatch batch) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+               spriteUpdate2.setX(ScreenInput.getX());
+               spriteUpdate2.setY(ScreenInput.getY());
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+               viewport.getCamera().translate(-1f, 0f, 0f);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+               viewport.getCamera().translate(1f, 0f, 0f);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+               viewport.getCamera().translate(0f, 1f, 0f);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+               viewport.getCamera().translate(0f, -1f, 0f);
+            }
+            wallAnimation.draw(batch, 200, 5);
+            movement.update(deltaTime, spriteUpdate);
+            motion1.update(deltaTime, movement.getDirection());
+            motion1.draw(batch, spriteUpdate.getX(), spriteUpdate.getY());
+            if (spriteUpdate.getX() >= 200 - motion1.getWidth() && spriteUpdate.getX() <= 220) {
+               wallAnimation2.draw(batch, 200, 5);
 //      } else {
 //         wallAnimation.setTranslucency(1f);
-      }
-      animation.draw(batch, spriteUpdate2.getX(), spriteUpdate2.getY());
+            }
+            animation.draw(batch, spriteUpdate2.getX(), spriteUpdate2.getY());
+         }
+      };
+
+      setGameMap(map);
    }
 
 }

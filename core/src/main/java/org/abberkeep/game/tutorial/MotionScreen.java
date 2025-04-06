@@ -17,7 +17,9 @@
 package org.abberkeep.game.tutorial;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.game.test.SimpleRenderMap;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.LayeredAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
@@ -28,8 +30,6 @@ import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.motion.TwoWayMotion;
 import org.abberkeep.gameframework.movement.Direction;
 import org.abberkeep.gameframework.screen.BaseScreen;
-import org.abberkeep.gameframework.sprite.Actor;
-import org.abberkeep.gameframework.sprite.Decor;
 
 /**
  * Title: AnimationScreen
@@ -78,39 +78,39 @@ public class MotionScreen extends BaseScreen {
 //      LoopAnimation walkRight = new LoopAnimation(.2f, textureRegions2[1]);
       //twoWayMotion = new TwoWayMotion(walkRight, walkLeft);
       //twoWayMotion = new TwoWayMotion(getTexture("Jojo-Running.png"), 50, 62, .2f, 1, 0);
-   }
 
-   @Override
-   protected void renderChild(float deltaTime) {
-      if (direction == Direction.EAST) {
-         cx += mv;
-         if (cx > 200) {
-            cx = 200;
-            direction = Direction.NORTH;
-         }
-      } else if (direction == Direction.NORTH) {
-         cy += mv;
-         if (cy > 200) {
-            cy = 200;
-            direction = Direction.WEST;
-         }
-      } else if (direction == Direction.WEST) {
-         cx -= mv;
-         if (cx < 100) {
-            cx = 100;
-            direction = Direction.SOUTH;
-         }
-      } else {
-         cy -= mv;
-         if (cy < 100) {
-            cy = 100;
-            direction = Direction.EAST;
-         }
-      }
+      SimpleRenderMap map = new SimpleRenderMap() {
+         @Override
+         public void render(float deltaTime, SpriteBatch batch) {
+            if (direction == Direction.EAST) {
+               cx += mv;
+               if (cx > 200) {
+                  cx = 200;
+                  direction = Direction.NORTH;
+               }
+            } else if (direction == Direction.NORTH) {
+               cy += mv;
+               if (cy > 200) {
+                  cy = 200;
+                  direction = Direction.WEST;
+               }
+            } else if (direction == Direction.WEST) {
+               cx -= mv;
+               if (cx < 100) {
+                  cx = 100;
+                  direction = Direction.SOUTH;
+               }
+            } else {
+               cy -= mv;
+               if (cy < 100) {
+                  cy = 100;
+                  direction = Direction.EAST;
+               }
+            }
 //      fourWayMotion1.update(deltaTime, direction);
 //      fourWayMotion1.draw(batch, cx, cy);
-      singleMotion.update(deltaTime, direction);
-      singleMotion.draw(batch, cx, cy);
+            singleMotion.update(deltaTime, direction);
+            singleMotion.draw(batch, cx, cy);
 //      if (direction == Direction.EAST) {
 //         cx += mv;
 //         if (cx > 300) {
@@ -124,16 +124,10 @@ public class MotionScreen extends BaseScreen {
 //      }
 //      twoWayMotion.update(deltaTime, direction);
 //      twoWayMotion.draw(batch, cx, cy);
-   }
+         }
+      };
 
-   @Override
-   public void addActor(Actor actor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
-   public void addDecor(Decor decor) {
-      throw new UnsupportedOperationException("Not supported yet.");
+      setGameMap(map);
    }
 
 }

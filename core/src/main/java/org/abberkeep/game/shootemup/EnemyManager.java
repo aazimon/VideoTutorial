@@ -19,6 +19,7 @@ package org.abberkeep.game.shootemup;
 import com.badlogic.gdx.Gdx;
 import java.util.Random;
 import org.abberkeep.gameframework.Updatable;
+import org.abberkeep.gameframework.screen.map.GameMap;
 
 /**
  * Title: EnemyManager
@@ -31,7 +32,7 @@ import org.abberkeep.gameframework.Updatable;
  * @version
  */
 public class EnemyManager implements Updatable {
-   private ShootemUpScreen screen;
+   private GameMap gameMap;
    private ObstacleFactory obstacleFactory;
    private float obstacleTime;
    private float shipTime;
@@ -40,8 +41,8 @@ public class EnemyManager implements Updatable {
    private EnemyShip enemyShip;
    private boolean enemyAdded = false;
 
-   public EnemyManager(ShootemUpScreen screen, ObstacleFactory obstacleFactory, EnemyShip enemy) {
-      this.screen = screen;
+   public EnemyManager(GameMap gameMap, ObstacleFactory obstacleFactory, EnemyShip enemy) {
+      this.gameMap = gameMap;
       this.obstacleFactory = obstacleFactory;
       width = Gdx.graphics.getWidth() - 40;
       random = new Random(System.currentTimeMillis());
@@ -59,7 +60,7 @@ public class EnemyManager implements Updatable {
       }
       if (!enemyAdded && shipTime > 5f) {
          enemyShip.setLocation(0, Gdx.graphics.getHeight() + 45);
-         screen.addActor(enemyShip);
+         gameMap.addActor(enemyShip);
          enemyAdded = true;
       }
    }

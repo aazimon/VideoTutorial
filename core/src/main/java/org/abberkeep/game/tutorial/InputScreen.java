@@ -19,6 +19,8 @@ package org.abberkeep.game.tutorial;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import org.abberkeep.game.test.SimpleRenderMap;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.motion.FourWayMotion;
@@ -26,9 +28,7 @@ import org.abberkeep.gameframework.motion.TwoWayMotion;
 import org.abberkeep.gameframework.movement.FourKeyMovement;
 import org.abberkeep.gameframework.movement.TwoKeyMovement;
 import org.abberkeep.gameframework.screen.BaseScreen;
-import org.abberkeep.gameframework.sprite.Actor;
 import org.abberkeep.gameframework.sprite.BoundingBox;
-import org.abberkeep.gameframework.sprite.Decor;
 import org.abberkeep.gameframework.sprite.SpriteUpdate;
 
 /**
@@ -76,8 +76,13 @@ public class InputScreen extends BaseScreen {
          }
 
          @Override
-         public boolean contains(int x, int y) {
+         public boolean contains(int x, int y, int layer) {
             return false;
+         }
+
+         @Override
+         public int getLayer() {
+            return 0;
          }
 
          @Override
@@ -111,32 +116,35 @@ public class InputScreen extends BaseScreen {
             y = nY;
          }
 
+         @Override
+         public void setLayer(int layer) {
+         }
       };
-   }
 
-   @Override
-   protected void renderChild(float deltaTime) {
-      if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-         viewport.getCamera().translate(-1f, 0f, 0f);
-      } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-         viewport.getCamera().translate(1f, 0f, 0f);
-      }
+      SimpleRenderMap map = new SimpleRenderMap() {
+         @Override
+         public void render(float deltaTime, SpriteBatch batch) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+               viewport.getCamera().translate(-1f, 0f, 0f);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+               viewport.getCamera().translate(1f, 0f, 0f);
+            }
 
-      //int x = 0;
-      //int y = 0;
-      //animation1.draw(batch, 100, 100);
-      //x = Gdx.input.getX();
-      //y = Gdx.input.getY();
-      //x = ScreenInput.getX();
-      //y = ScreenInput.getY();
-      //x = Gdx.input.getDeltaX();
-      //y = Gdx.input.getDeltaY();
-      //y = ScreenInput.getDeltaY();
-      //boolean b = false;
-      //b = Gdx.input.isButtonJustPressed(Input.Buttons.LEFT);
-      //b = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
-      //b = Gdx.input.isKeyPressed(Input.Keys.B);
-      //b = Gdx.input.isKeyJustPressed(Input.Keys.A);
+            //int x = 0;
+            //int y = 0;
+            //animation1.draw(batch, 100, 100);
+            //x = Gdx.input.getX();
+            //y = Gdx.input.getY();
+            //x = ScreenInput.getX();
+            //y = ScreenInput.getY();
+            //x = Gdx.input.getDeltaX();
+            //y = Gdx.input.getDeltaY();
+            //y = ScreenInput.getDeltaY();
+            //boolean b = false;
+            //b = Gdx.input.isButtonJustPressed(Input.Buttons.LEFT);
+            //b = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+            //b = Gdx.input.isKeyPressed(Input.Keys.B);
+            //b = Gdx.input.isKeyJustPressed(Input.Keys.A);
 //      if (b) {
 //         count++;
 //         System.out.println("Input: " + count);
@@ -157,29 +165,23 @@ public class InputScreen extends BaseScreen {
 //            }
 //         }, "Heading", "", "hint text");
 //      }
-      //x += 100;
-      //y += 100;
-      //animation.draw(batch, x, y);
-      //movement.update(deltaTime);
-      //motion.update(deltaTime, movement.getDirection());
-      //x = x + movement.getXUpdate();
-      //y = y + movement.getYUpdate();
-      //motion.draw(batch, x, y);
-      movement1.update(deltaTime, spriteUpdate);
-      motion1.update(deltaTime, movement1.getDirection());
+            //x += 100;
+            //y += 100;
+            //animation.draw(batch, x, y);
+            //movement.update(deltaTime);
+            //motion.update(deltaTime, movement.getDirection());
+            //x = x + movement.getXUpdate();
+            //y = y + movement.getYUpdate();
+            //motion.draw(batch, x, y);
+            movement1.update(deltaTime, spriteUpdate);
+            motion1.update(deltaTime, movement1.getDirection());
 //      x = x + movement1.getXUpdate();
 //      y = y + movement1.getYUpdate();
-      motion1.draw(batch, spriteUpdate.getX(), spriteUpdate.getY());
-   }
+            motion1.draw(batch, spriteUpdate.getX(), spriteUpdate.getY());
+         }
+      };
 
-   @Override
-   public void addActor(Actor actor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
-   public void addDecor(Decor decor) {
-      throw new UnsupportedOperationException("Not supported yet.");
+      setGameMap(map);
    }
 
 }
