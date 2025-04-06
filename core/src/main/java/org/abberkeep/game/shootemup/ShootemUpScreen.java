@@ -26,7 +26,9 @@ import org.abberkeep.gameframework.motion.SingleMotion;
 import org.abberkeep.gameframework.movement.ScriptMovement;
 import org.abberkeep.gameframework.movement.actions.GoToAction;
 import org.abberkeep.gameframework.movement.actions.RandomDestinationAction;
-import org.abberkeep.gameframework.screen.SimpleScreen;
+import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.screen.map.GameMap;
+import org.abberkeep.gameframework.screen.map.SimpleSpriteMap;
 
 /**
  * Title: ShootemUpScreen
@@ -38,36 +40,36 @@ import org.abberkeep.gameframework.screen.SimpleScreen;
  * @author Gary Deken
  * @version
  */
-public class ShootemUpScreen extends SimpleScreen {
+public class ShootemUpScreen extends BaseScreen {
 
    @Override
    public void show() {
       BlockAnimation animationLaser = new BlockAnimation(Laser.WIDTH, Laser.HEIGHT);
       animationLaser.setColor(Color.RED);
-      LaserFactory laserFactory = new LaserFactory(this, animationLaser);
+      SimpleSpriteMap map = new SimpleSpriteMap(1);
+      LaserFactory laserFactory = new LaserFactory(map, animationLaser);
 
       BlockAnimation shipAni = new BlockAnimation(100, 40);
       SingleMotion shipMotion = new SingleMotion(shipAni);
       Ship ship = new Ship(shipMotion, laserFactory, getSound("ShipHit.wav"), getSound("Laser.wav"));
       ship.setLocation(width / 2 - 50, 60);
 
-      addActor(ship);
+      map.addActor(ship);
+      ObstacleFactory obstacleFactory = new ObstacleFactory(map, getSound("Obstacle Explosion.wav"));
+      EnemyShip enemyShip = buildEnemyShip(map);
 
-      ObstacleFactory obstacleFactory = new ObstacleFactory(this, getSound("Obstacle Explosion.wav"));
-      EnemyShip enemyShip = buildEnemyShip();
-
-      EnemyManager manager = new EnemyManager(this, obstacleFactory, enemyShip);
+      EnemyManager manager = new EnemyManager(map, obstacleFactory, enemyShip);
 
       addUpdatable(manager);
-
+      setGameMap(map);
    }
 
-   private BulletFactory buildBullerFactory() {
+   private BulletFactory buildBullerFactory(GameMap gameMap) {
       TextureRegion[][] bullets = TextureRegion.split(getTexture("Bullet.png"), 15, 15);
-      return new BulletFactory(this, bullets[0]);
+      return new BulletFactory(gameMap, bullets[0]);
    }
 
-   private EnemyShip buildEnemyShip() {
+   private EnemyShip buildEnemyShip(GameMap gameMap) {
       Random random = new Random(System.currentTimeMillis());
       RandomDestinationAction action = new RandomDestinationAction(() -> random.nextInt(10) * 10 + 100,
          () -> Gdx.graphics.getHeight() - 80, 2.5f);
@@ -82,7 +84,8 @@ public class ShootemUpScreen extends SimpleScreen {
       BlockAnimation enemyAni = new BlockAnimation(100, 40);
       enemyAni.setColor(Color.BLUE);
       SingleMotion enemyMotion = new SingleMotion(enemyAni);
-      EnemyShip enemyShip = new EnemyShip(enemyMovement, enemyMotion, getSound("EnemyHit.wav"), buildBullerFactory());
+      EnemyShip enemyShip = new EnemyShip(enemyMovement, enemyMotion, getSound("EnemyHit.wav"), buildBullerFactory(
+         gameMap));
 
       return enemyShip;
    }

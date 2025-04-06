@@ -17,10 +17,9 @@
 package org.abberkeep.game.test;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import org.abberkeep.gameframework.screen.BaseScreen;
-import org.abberkeep.gameframework.sprite.Actor;
-import org.abberkeep.gameframework.sprite.Decor;
 
 /**
  * Title: ShapeExample
@@ -33,6 +32,7 @@ import org.abberkeep.gameframework.sprite.Decor;
  * @version
  */
 public class ShapeExample extends BaseScreen {
+   private SimpleRenderMap map;
 
    public ShapeExample() {
       super();
@@ -40,35 +40,29 @@ public class ShapeExample extends BaseScreen {
 
    @Override
    public void show() {
-   }
-
-   @Override
-   protected void renderChild(float deltaTime) {
-      float y = 20;
-      batch.end();
-      ShapeRenderer shape = new ShapeRenderer();
-      //shape.setProjectionMatrix(matrix);
-      shape.begin(ShapeRenderer.ShapeType.Line);
-      shape.setColor(Color.RED);
+      map = new SimpleRenderMap() {
+         @Override
+         public void render(float deltaTime, SpriteBatch batch) {
+            float y = 20;
+            batch.end();
+            ShapeRenderer shape = new ShapeRenderer();
+            //shape.setProjectionMatrix(matrix);
+            shape.begin(ShapeRenderer.ShapeType.Line);
+            shape.setColor(Color.RED);
 //      shape.rect(150, y, 128, 128);
 //      shape.arc(60, y+60, 50, 10, 30);
 //      shape.circle(60, y + 60, 50);
 //      shape.ellipse(60, y + 60, 20, 40, 20f);
 //      shape.line(10, y, 30, 100);
 //      shape.triangle(10, y, 50, 20, 10, 80);
-      shape.end();
-      batch.flush();
-      batch.begin();
-   }
+            shape.end();
+            batch.flush();
+            batch.begin();
+         }
 
-   @Override
-   public void addActor(Actor actor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
+      };
 
-   @Override
-   public void addDecor(Decor decor) {
-      throw new UnsupportedOperationException("Not supported yet.");
+      setGameMap(map);
    }
 
 }

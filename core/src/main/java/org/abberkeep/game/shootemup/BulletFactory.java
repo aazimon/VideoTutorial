@@ -24,7 +24,7 @@ import org.abberkeep.gameframework.movement.Direction;
 import org.abberkeep.gameframework.movement.Movement;
 import org.abberkeep.gameframework.movement.ScriptMovement;
 import org.abberkeep.gameframework.movement.actions.MoveAction;
-import org.abberkeep.gameframework.screen.BaseScreen;
+import org.abberkeep.gameframework.screen.map.GameMap;
 import org.abberkeep.gameframework.sprite.ActorFactory;
 
 /**
@@ -40,8 +40,8 @@ import org.abberkeep.gameframework.sprite.ActorFactory;
 public class BulletFactory extends ActorFactory<Bullet> {
    private TextureRegion[] bullet;
 
-   public BulletFactory(BaseScreen baseScreen, TextureRegion[] bullet) {
-      super(baseScreen);
+   public BulletFactory(GameMap gameMap, TextureRegion[] bullet) {
+      super(gameMap);
       this.bullet = bullet;
       queueSize = 20;
       setupQueue();

@@ -16,15 +16,15 @@
  */
 package org.abberkeep.game.tutorial;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.abberkeep.game.test.SimpleRenderMap;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.animation.BounceAnimation;
 import org.abberkeep.gameframework.animation.LoopAnimation;
 import org.abberkeep.gameframework.animation.RandomAnimation;
 import org.abberkeep.gameframework.background.FixedBackground;
 import org.abberkeep.gameframework.screen.BaseScreen;
-import org.abberkeep.gameframework.sprite.Actor;
-import org.abberkeep.gameframework.sprite.Decor;
 
 /**
  * Title: AnimationScreen
@@ -69,76 +69,69 @@ public class AnimationScreen extends BaseScreen {
       loopAnimationLeft = new LoopAnimation(0.2f, regionWalk[1]);
       loopAnimationRight = new LoopAnimation(0.2f, regionWalk[2]);
       loopAnimationUp = new LoopAnimation(0.2f, regionWalk[3]);
-   }
-
-   @Override
-   protected void renderChild(float deltaTime) {
-      loopAnimation1.update(deltaTime);
-      bounceAnimation1.update(deltaTime);
-      randomAnimation1.update(deltaTime);
-      loopAnimation2.update(deltaTime);
+      SimpleRenderMap map = new SimpleRenderMap() {
+         @Override
+         public void render(float deltaTime, SpriteBatch batch) {
+            loopAnimation1.update(deltaTime);
+            bounceAnimation1.update(deltaTime);
+            randomAnimation1.update(deltaTime);
+            loopAnimation2.update(deltaTime);
 
 //      loopAnimation1.draw(batch, 10, 100);
 //      bounceAnimation1.draw(batch, 10, 100);
 //      randomAnimation1.draw(batch, 10, 100);
 //      loopAnimation2.draw(batch, 100, 100);
-      // Resizing
-      //batch.draw(animation2.getKeyFrame(animationTime), 10, 100, 50, 200);
-      //batch.draw(animation2.getKeyFrame(animationTime), 80, 100, 25, 100);
-      // rotating  and sizing.
-      //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, 1, 1, 0, false);
-      //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, -1, 1, 0, true);
-      switch (direct) {
-         case 'r':
-            cx += mv;
-            if (cx > 200) {
-               cx = 200;
-               direct = 'u';
+            // Resizing
+            //batch.draw(animation2.getKeyFrame(animationTime), 10, 100, 50, 200);
+            //batch.draw(animation2.getKeyFrame(animationTime), 80, 100, 25, 100);
+            // rotating  and sizing.
+            //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, 1, 1, 0, false);
+            //batch.draw(animation2.getKeyFrame(animationTime), 150, 100, 0, 0, 200, 50, -1, 1, 0, true);
+            switch (direct) {
+               case 'r':
+                  cx += mv;
+                  if (cx > 200) {
+                     cx = 200;
+                     direct = 'u';
+                  }
+                  loopAnimationRight.update(deltaTime);
+                  loopAnimationRight.draw(batch, cx, cy);
+                  break;
+               case 'u':
+                  cy += mv;
+                  if (cy > 200) {
+                     cy = 200;
+                     direct = 'l';
+                  }
+                  loopAnimationUp.update(deltaTime);
+                  loopAnimationUp.draw(batch, cx, cy);
+                  break;
+               case 'l':
+                  cx -= mv;
+                  if (cx < 100) {
+                     cx = 100;
+                     direct = 'd';
+                  }
+                  loopAnimationLeft.update(deltaTime);
+                  loopAnimationLeft.draw(batch, cx, cy);
+                  break;
+               case 'd':
+                  cy -= mv;
+                  if (cy < 100) {
+                     cy = 100;
+                     direct = 'r';
+                  }
+                  loopAnimationDown.update(deltaTime);
+                  loopAnimationDown.draw(batch, cx, cy);
+                  break;
+               default:
+                  throw new AssertionError();
             }
-            loopAnimationRight.update(deltaTime);
-            loopAnimationRight.draw(batch, cx, cy);
-            break;
-         case 'u':
-            cy += mv;
-            if (cy > 200) {
-               cy = 200;
-               direct = 'l';
-            }
-            loopAnimationUp.update(deltaTime);
-            loopAnimationUp.draw(batch, cx, cy);
-            break;
-         case 'l':
-            cx -= mv;
-            if (cx < 100) {
-               cx = 100;
-               direct = 'd';
-            }
-            loopAnimationLeft.update(deltaTime);
-            loopAnimationLeft.draw(batch, cx, cy);
-            break;
-         case 'd':
-            cy -= mv;
-            if (cy < 100) {
-               cy = 100;
-               direct = 'r';
-            }
-            loopAnimationDown.update(deltaTime);
-            loopAnimationDown.draw(batch, cx, cy);
-            break;
-         default:
-            throw new AssertionError();
-      }
+         }
+      };
 
-   }
+      setGameMap(map);
 
-   @Override
-   public void addActor(Actor actor) {
-      throw new UnsupportedOperationException("Not supported yet.");
-   }
-
-   @Override
-   public void addDecor(Decor decor) {
-      throw new UnsupportedOperationException("Not supported yet.");
    }
 
 }
