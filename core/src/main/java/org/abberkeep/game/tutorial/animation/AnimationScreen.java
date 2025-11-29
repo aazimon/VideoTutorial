@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.abberkeep.game.tutorial;
+package org.abberkeep.game.tutorial.animation;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -52,7 +52,6 @@ public class AnimationScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("MovingBall.png"), 50, 200);
 
       loopAnimation1 = new LoopAnimation(0.1f, textureRegions1[0], 3);
@@ -129,6 +128,7 @@ public class AnimationScreen extends BaseScreen {
             }
          }
       };
+      map.setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
 
       setGameMap(map);
 

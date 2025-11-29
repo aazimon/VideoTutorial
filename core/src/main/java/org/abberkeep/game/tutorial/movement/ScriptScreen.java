@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.abberkeep.game.tutorial;
+package org.abberkeep.game.tutorial.movement;
 
 import static org.abberkeep.gameframework.movement.actions.EasingAction.EASING_POWER.TRI;
 
@@ -47,7 +47,6 @@ public class ScriptScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       Texture texture = getTexture("DemoCharacter2A.png");
       FourWayMotion motion = new FourWayMotion(texture, 64, 64, .2f, 3, 2, 0, 1);
       TextureRegion[][] textReg = TextureRegion.split(texture, 64, 64);
@@ -71,6 +70,7 @@ public class ScriptScreen extends BaseScreen {
 
       SimpleSpriteMap map = new SimpleSpriteMap(1);
 
+      map.setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       map.addActor(actor);
       setGameMap(map);
    }

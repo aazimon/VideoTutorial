@@ -23,6 +23,8 @@ import java.util.Random;
 import java.util.function.Supplier;
 import org.abberkeep.gameframework.animation.BlockAnimation;
 import org.abberkeep.gameframework.motion.SingleMotion;
+import org.abberkeep.gameframework.movement.GamePadMovement;
+import org.abberkeep.gameframework.movement.Movement;
 import org.abberkeep.gameframework.movement.ScriptMovement;
 import org.abberkeep.gameframework.movement.actions.GoToAction;
 import org.abberkeep.gameframework.movement.actions.RandomDestinationAction;
@@ -51,7 +53,9 @@ public class ShootemUpScreen extends BaseScreen {
 
       BlockAnimation shipAni = new BlockAnimation(100, 40);
       SingleMotion shipMotion = new SingleMotion(shipAni);
-      Ship ship = new Ship(shipMotion, laserFactory, getSound("ShipHit.wav"), getSound("Laser.wav"));
+      //Movement movement = new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, 2.5f, true);
+      Movement movement = new GamePadMovement(11, 12, 14, 13, 2.5f);
+      Ship ship = new Ship(movement, shipMotion, laserFactory, getSound("ShipHit.wav"), getSound("Laser.wav"));
       ship.setLocation(width / 2 - 50, 60);
 
       map.addActor(ship);

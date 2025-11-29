@@ -52,7 +52,7 @@ public class Laser extends ForgedActor {
          setRemove(true);
          ((EnemyShip) other).hit();
       }
-      super.handleCollision(other);
+      //super.handleCollision(other);
    }
 
    @Override

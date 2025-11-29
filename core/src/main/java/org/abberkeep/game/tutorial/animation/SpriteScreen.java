@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.abberkeep.game.tutorial;
+package org.abberkeep.game.tutorial.animation;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -59,7 +59,6 @@ public class SpriteScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
 //      motion = new FourWayMotion(getTexture("DemoCharacterA.png"), 64, 64, 0.2f, 3, 2, 0, 1);
 //      movement = new MouseMovement(Input.Buttons.LEFT, 1f);
       Texture texture = getTexture("DemoCharacterA.png");
@@ -129,6 +128,7 @@ public class SpriteScreen extends BaseScreen {
 //      tree2Animation.draw(batch, 200, 159);
          }
       };
+      map.setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       setGameMap(map);
    }
 

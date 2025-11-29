@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package org.abberkeep.game.tutorial;
+package org.abberkeep.game.tutorial.animation;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,7 +31,6 @@ public class ImageScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       img = getTexture("DemoPortait.png");
       sa1 = new StaticAnimation(img);
       sa2 = new StaticAnimation(img, 100, 200);
@@ -71,6 +70,7 @@ public class ImageScreen extends BaseScreen {
             //batch.draw(img, 300, y);
          }
       };
+      map.setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
 
       setGameMap(map);
    }

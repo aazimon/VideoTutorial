@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.abberkeep.game.tutorial;
+package org.abberkeep.game.tutorial.animation;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -53,7 +53,6 @@ public class MotionScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       TextureRegion[][] textureRegions1 = TextureRegion.split(getTexture("Magic-Ring.png"), 39, 48);
 
       StaticAnimation egg = new StaticAnimation(getTexture("Egg.png"));
@@ -126,6 +125,7 @@ public class MotionScreen extends BaseScreen {
 //      twoWayMotion.draw(batch, cx, cy);
          }
       };
+      map.setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
 
       setGameMap(map);
    }

@@ -1,6 +1,6 @@
 package org.abberkeep.game.tutorial;
 
-import org.abberkeep.game.checkerboard.CheckerBoardScreen;
+import org.abberkeep.game.tutorial.movement.ControllerStickScreen;
 import org.abberkeep.gameframework.BaseGame;
 
 public class GameTutorial extends BaseGame {
@@ -18,10 +18,12 @@ public class GameTutorial extends BaseGame {
       //SimpleTest screen = new SimpleTest();
       //ScriptScreen screen = new ScriptScreen();
       //ShootemUpScreen screen = new ShootemUpScreen();
-      CheckerBoardScreen screen = new CheckerBoardScreen();
+      //CheckerBoardScreen screen = new CheckerBoardScreen();
+      //BattleScene screen = new BattleScene();
+      //ControllerScreen screen = new ControllerScreen();
+      ControllerStickScreen screen = new ControllerStickScreen();
 
       setScreen(screen);
-
    }
 
 }

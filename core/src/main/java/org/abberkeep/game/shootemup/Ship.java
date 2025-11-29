@@ -17,11 +17,11 @@
 package org.abberkeep.game.shootemup;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
 import org.abberkeep.gameframework.motion.Motion;
-import org.abberkeep.gameframework.movement.TwoKeyMovement;
+import org.abberkeep.gameframework.movement.Movement;
 import org.abberkeep.gameframework.sprite.Sprite;
 
 /**
@@ -37,9 +37,10 @@ import org.abberkeep.gameframework.sprite.Sprite;
 public class Ship extends BaseShip {
    private Sound laserSound;
    private LaserFactory laserFactory;
+   private float countdown = 0;
 
-   public Ship(Motion motion, LaserFactory factory, Sound hitSound, Sound laserSound) {
-      super(new TwoKeyMovement(Input.Keys.RIGHT, Input.Keys.LEFT, 2.5f, true), motion, motion, Color.WHITE, 10, hitSound);
+   public Ship(Movement movement, Motion motion, LaserFactory factory, Sound hitSound, Sound laserSound) {
+      super(movement, motion, motion, Color.WHITE, 10, hitSound);
       this.laserFactory = factory;
       this.laserSound = laserSound;
    }
@@ -62,11 +63,21 @@ public class Ship extends BaseShip {
       } else if (x + width + 5 > Gdx.graphics.getWidth()) {
          x = Gdx.graphics.getWidth() - width - 5;
       }
-      if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-         // fire
-         laserFactory.createNewActor(x + (width / 2), y + Laser.HEIGHT + height);
-         laserSound.play();
+      if (y < 5) {
+         y = 5;
+      } else if (y > 200) {
+         y = 200;
       }
+      //if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+      if (Controllers.getCurrent().getButton(1)) {
+         if (countdown < 0) {
+            // fire
+            laserFactory.createNewActor(x + (width / 2), y + Laser.HEIGHT + height + 2, 0);
+            laserSound.play();
+            countdown = .25f;
+         }
+      }
+      countdown -= deltaTime;
    }
 
 }

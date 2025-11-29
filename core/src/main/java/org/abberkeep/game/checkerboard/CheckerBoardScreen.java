@@ -37,7 +37,7 @@ public class CheckerBoardScreen extends BaseScreen {
       Background bg = new FixedBackground(new StaticAnimation(getTexture("Board.jpg")), true);
       SimpleSpriteMap map = new SimpleSpriteMap(2);
 
-      setBackground(bg);
+      map.setBackground(bg);
       setGameMap(map);
 
       Chip chipRed1 = buildChip(getTexture("RedChip.png"), getTexture("RedChipMove.png"));
