@@ -14,8 +14,8 @@ public class Lwjgl3Launcher {
    }
 
    private static Lwjgl3Application createApplication() {
-      int width = 920;// 640;
-      int height = 920;//480;
+      int width = 800;// 640;
+      int height = 600;//480;
       return new Lwjgl3Application(new GameTutorial(), getDefaultConfiguration(width, height));
    }
 

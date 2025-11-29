@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.abberkeep.game.tutorial;
+package org.abberkeep.game.tutorial.movement;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -55,7 +55,6 @@ public class MouseMovementScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       motion1 = new FourWayMotion(getTexture("DemoCharacterA.png"), 64, 64, 0.2f, 3, 2, 0, 1);
       movement = new MouseMovement(Input.Buttons.LEFT, 1f);
       spriteUpdate = new SpriteUpdate() {
@@ -91,6 +90,12 @@ public class MouseMovementScreen extends BaseScreen {
 
          @Override
          public void setLocation(float nX, float nY) {
+            x = nX;
+            y = nY;
+         }
+
+         @Override
+         public void setLocation(float nX, float nY, int nLayer) {
             x = nX;
             y = nY;
          }
@@ -151,6 +156,12 @@ public class MouseMovementScreen extends BaseScreen {
          }
 
          @Override
+         public void setLocation(float nX, float nY, int nLayer) {
+            x = nX;
+            y = nY;
+         }
+
+         @Override
          public void setRemove(boolean remove) {
             //
          }
@@ -199,6 +210,7 @@ public class MouseMovementScreen extends BaseScreen {
             animation.draw(batch, spriteUpdate2.getX(), spriteUpdate2.getY());
          }
       };
+      map.setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
 
       setGameMap(map);
    }

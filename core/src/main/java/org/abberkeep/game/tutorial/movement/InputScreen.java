@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.abberkeep.game.tutorial;
+package org.abberkeep.game.tutorial.movement;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -56,7 +56,6 @@ public class InputScreen extends BaseScreen {
 
    @Override
    public void show() {
-      setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
       animation = new BlockAnimation(20, 20);
       animation.setColor(Color.BLUE);
       animation1 = new BlockAnimation(20, 20);
@@ -97,6 +96,12 @@ public class InputScreen extends BaseScreen {
 
          @Override
          public void setLocation(float nX, float nY) {
+            x = nX;
+            y = nY;
+         }
+
+         @Override
+         public void setLocation(float nX, float nY, int nLayer) {
             x = nX;
             y = nY;
          }
@@ -180,6 +185,7 @@ public class InputScreen extends BaseScreen {
             motion1.draw(batch, spriteUpdate.getX(), spriteUpdate.getY());
          }
       };
+      map.setBackground(new FixedBackground(new BlockAnimation(100, 100), true));
 
       setGameMap(map);
    }

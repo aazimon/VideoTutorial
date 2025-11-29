@@ -58,8 +58,8 @@ public class EnemyShip extends BaseShip {
             bulletCount++;
             bulletTime = 0f;
             // ship width of 100
-            bullets.createNewActor(getX() + 25, getY() - 16);
-            bullets.createNewActor(getX() + 75, getY() - 16);
+            bullets.createNewActor(getX() + 25, getY() - 16, 0);
+            bullets.createNewActor(getX() + 75, getY() - 16, 0);
          }
          if (bulletCount > 9) {
             firing = false;
