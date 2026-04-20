@@ -16,34 +16,33 @@
  */
 package org.abberkeep.game.invasion;
 
-import org.abberkeep.gameframework.motion.Motion;
-import org.abberkeep.gameframework.movement.Movement;
-import org.abberkeep.gameframework.sprite.Actor;
-import org.abberkeep.gameframework.sprite.Sprite;
+import org.abberkeep.gameframework.state.GameState;
 
 /**
- * Title: Alien
  *
- * <p>
- * Description: </p>
- *
- * Copyright (c) Nov 22, 2025
- * @author Gary Deken
- * @version
+ * @author GaryDeken
  */
-public class Alien extends Actor {
+public class BattleState extends GameState {
+   private BattleScene currentScene;
+   private float speed = .5f;
 
-   public Alien(Movement movement, Motion moveMotion, Motion stillMotion) {
-      super(movement, moveMotion, stillMotion);
+   @Override
+   public void activateState() {
+      currentScene = new BattleScene(speed);
+      controller.setScreen(currentScene);
    }
 
    @Override
-   public void handleCollision(Sprite other) {
-      super.handleCollision(other);
+   public void deactivateState() {
+      currentScene.dispose();
    }
 
-   private void hit() {
-      setRemove(true);
+   @Override
+   public void update(float deltaTime) {
+      if (currentScene.isTroopsDone()) {
+         speed += .5f;
+         changeState(this);
+      }
    }
 
 }
