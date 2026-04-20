@@ -21,6 +21,7 @@ import org.abberkeep.gameframework.sprite.Sprite;
  * @version
  */
 public abstract class SimpleRenderMap extends GameMap {
+
    @Override
    public void addActor(Actor actor) {
       //
@@ -43,6 +44,10 @@ public abstract class SimpleRenderMap extends GameMap {
 
    @Override
    public void renderCycle(float deltaTime, SpriteBatch batch) {
+      if (background != null) {
+         background.update(deltaTime);
+         background.draw(batch);
+      }
       render(deltaTime, batch);
    }
 
