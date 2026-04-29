@@ -1,6 +1,6 @@
 package org.abberkeep.game.tutorial;
 
-import org.abberkeep.game.invasion.SplashState;
+import org.abberkeep.game.tutorial.components.ComponentScreen;
 import org.abberkeep.gameframework.BaseGame;
 
 public class GameTutorial extends BaseGame {
@@ -23,13 +23,13 @@ public class GameTutorial extends BaseGame {
       //ControllerScreen screen = new ControllerScreen();
       //ControllerStickScreen screen = new ControllerStickScreen();
       //FontScreen screen = new FontScreen();
-      //ComponentScreen screen = new ComponentScreen();
+      ComponentScreen screen = new ComponentScreen();
 
-      //setScreen(screen);
+      setScreen(screen);
       //BattleState state = new BattleState();
-      SplashState state = new SplashState();
-
-      setGameState(state);
+//      SplashState state = new SplashState();
+//
+//      setGameState(state);
    }
 
 }
